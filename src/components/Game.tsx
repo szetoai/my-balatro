@@ -247,7 +247,7 @@ function GetCardImage(r, s) {
   return cardImages[r - 2 + s_ind];
 }
 
-// makeDeck: Null -> [List-of Card]
+// MakeDeck: Null -> [List-of Card]
 // Creates an initial deck of cards
 function MakeDeck() {
   const deck = [];
@@ -269,4 +269,18 @@ function MakeDeck() {
   );
 }
 
-export default MakeDeck;
+// MakeHand: [List-of Card] PosInt-> [List-of Card]
+// Creates a hand of a size based on the given PosInt
+// from the deck (which is represented by the given [List-of Card])
+function MakeHand(deck, handsize) {
+  const hand = [];
+  let card = -1;
+  for (let x = handsize; x < handsize; x++) {
+    card = Math.floor(Math.random() * deck.length);
+    hand.push(deck[card]);
+    deck.splice(card, 1);
+  }
+  return hand;
+}
+
+export default MakeHand;

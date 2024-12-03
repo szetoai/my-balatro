@@ -1,7 +1,6 @@
 body {
   background-image: url("https://preview.redd.it/balatro-main-menu-image-without-ui-elements-v0-yl1be0ojeevc1.jpg?width=2560&format=pjpg&auto=webp&s=58e6d55652cc252b1968c3d1df6b37c1a8162011");
-  background-size: "cover";
-  background-repeat: repeat;
+  background-size: 100%;
 }
 
 #logo {
