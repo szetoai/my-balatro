@@ -1,4 +1,4 @@
-import { act, useState } from "react";
+import { useState } from "react";
 
 // card images:
 // 0-12 are hearts
@@ -7,7 +7,6 @@ import { act, useState } from "react";
 // 39-51 are spades
 // arranged in rank order
 // album stored at: https://postimg.cc/gallery/7qxhHBj/d06f6fd2
-
 // A CardImage is one of:
 // -'https://i.postimg.cc/1XQKscRw/tile000.png'
 // -'https://i.postimg.cc/RC7RG8GR/tile001.png'
@@ -269,7 +268,8 @@ interface HandProps {
 // from the deck (which is represented by the given [List-of Card])
 function MakeHand({ deck, handsize }: HandProps) {
   const hand = [];
-  const active_hand = [];
+  const [activeHand, setActiveHand] = useState(Array);
+  console.log(activeHand);
   let card = -1;
   for (let x = 0; x < handsize; x++) {
     card = Math.floor(Math.random() * deck.length);
@@ -281,7 +281,12 @@ function MakeHand({ deck, handsize }: HandProps) {
       {hand.map((item, index) => (
         <img
           src={item.img}
-          className={active_hand.includes(item) ? "active" : "inactive"}
+          className={
+            activeHand.some((x) => x.img === item.img) ? "active" : "inactive"
+          }
+          onClick={() => {
+            setActiveHand([...activeHand, item]);
+          }}
           key={index}
         ></img>
       ))}
