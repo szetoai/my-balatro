@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { act, useState } from "react";
 
 // card images:
 // 0-12 are hearts
@@ -269,6 +269,7 @@ interface HandProps {
 // from the deck (which is represented by the given [List-of Card])
 function MakeHand({ deck, handsize }: HandProps) {
   const hand = [];
+  const active_hand = [];
   let card = -1;
   for (let x = 0; x < handsize; x++) {
     card = Math.floor(Math.random() * deck.length);
@@ -278,7 +279,11 @@ function MakeHand({ deck, handsize }: HandProps) {
   return (
     <div className="hand">
       {hand.map((item, index) => (
-        <img src={item.img} key={index}></img>
+        <img
+          src={item.img}
+          className={active_hand.includes(item) ? "active" : "inactive"}
+          key={index}
+        ></img>
       ))}
     </div>
   );

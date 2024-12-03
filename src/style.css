@@ -16,3 +16,7 @@ body {
   gap: 20px;
   flex-wrap: wrap;
 }
+
+.active {
+  margin-top: 15%;
+}
