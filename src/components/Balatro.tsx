@@ -253,7 +253,7 @@ function MakeDeck() {
   const deck = [];
   for (const s in suits) {
     for (let r = 2; r < 15; r++) {
-      deck.push({ rank: r, suit: s, img: GetCardImage(r, suits[s]) });
+      deck.push({ rank: r, suit: suits[s], img: GetCardImage(r, suits[s]) });
     }
   }
   return deck;
@@ -275,10 +275,11 @@ function MakeHand({ deck, handsize }: HandProps) {
     hand.push(deck[card]);
     deck.splice(card, 1);
   }
+  console.log(deck);
   return (
     <div className="hand">
-      {hand.map((item) => (
-        <img src={item.img}></img>
+      {hand.map((item, index) => (
+        <img src={item.img} key={index}></img>
       ))}
     </div>
   );

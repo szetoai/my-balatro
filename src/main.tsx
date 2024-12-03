@@ -1,10 +1,9 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import 'bootstrap/dist/css/bootstrap.css'
-import Balatro from './Balatro.tsx'
+import { createRoot } from "react-dom/client";
+import "bootstrap/dist/css/bootstrap.css";
+import "./style.css";
+import { MakeDeck, MakeHand } from "./components/Balatro";
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <Balatro />
-  </StrictMode>,
-)
+const current_deck = MakeDeck();
+createRoot(document.getElementById("root")!).render(
+  <MakeHand deck={current_deck} handsize={52} />
+);
