@@ -1,5 +1,5 @@
 import MakeDeck from './components/Game';
-import './App.css'
+import './style.css'
 
 function Balatro() {
   return <div className='game'><MakeDeck /></div>
