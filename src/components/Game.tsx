@@ -256,10 +256,29 @@ function MakeDeck() {
       deck.push({ rank: r, suit: s, img: GetCardImage(r, suits[s]) });
     }
   }
+  return deck;
+}
+
+interface HandProps {
+  deck: object[];
+  handsize: number;
+}
+
+// MakeHand: [List-of Card] PosInt-> [List-of Card]
+// Creates a hand of a size based on the given PosInt
+// from the deck (which is represented by the given [List-of Card])
+function MakeHand({ deck, handsize }: HandProps) {
+  const hand = [];
+  let card = -1;
+  for (let x = 0; x < handsize; x++) {
+    card = Math.floor(Math.random() * deck.length);
+    hand.push(deck[card]);
+    deck.splice(card, 1);
+  }
   return (
     <>
       <ul className="list-group">
-        {deck.map((item, index) => (
+        {hand.map((item, index) => (
           <li className="list-group-item" key={index}>
             <img src={item.img}></img>
           </li>
@@ -269,18 +288,4 @@ function MakeDeck() {
   );
 }
 
-// MakeHand: [List-of Card] PosInt-> [List-of Card]
-// Creates a hand of a size based on the given PosInt
-// from the deck (which is represented by the given [List-of Card])
-function MakeHand(deck, handsize) {
-  const hand = [];
-  let card = -1;
-  for (let x = handsize; x < handsize; x++) {
-    card = Math.floor(Math.random() * deck.length);
-    hand.push(deck[card]);
-    deck.splice(card, 1);
-  }
-  return hand;
-}
-
-export default MakeHand;
+export {MakeDeck, MakeHand};
