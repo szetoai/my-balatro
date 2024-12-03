@@ -276,16 +276,12 @@ function MakeHand({ deck, handsize }: HandProps) {
     deck.splice(card, 1);
   }
   return (
-    <>
-      <ul className="list-group">
-        {hand.map((item, index) => (
-          <li className="list-group-item" key={index}>
-            <img src={item.img}></img>
-          </li>
-        ))}
-      </ul>
-    </>
+    <div className="hand">
+      {hand.map((item) => (
+        <img src={item.img}></img>
+      ))}
+    </div>
   );
 }
 
-export {MakeDeck, MakeHand};
+export { MakeDeck, MakeHand };
