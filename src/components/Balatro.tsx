@@ -275,7 +275,6 @@ function MakeHand({ deck, handsize }: HandProps) {
     hand.push(deck[card]);
     deck.splice(card, 1);
   }
-  console.log(deck);
   return (
     <div className="hand">
       {hand.map((item, index) => (
