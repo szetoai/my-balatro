@@ -286,7 +286,11 @@ function MakeHand({ deck, handsize }: HandProps) {
             activeHand.some((x) => x.img === item.img) ? "active" : "inactive"
           }
           onClick={() => {
-            setActiveHand([...activeHand, item]);
+            if (!activeHand.some((x) => x.img === item.img) && activeHand.length < 5) {
+              setActiveHand([...activeHand, item]);
+            } else {
+              setActiveHand(activeHand.filter((x) => x.img !== item.img));
+            }
             setHand(hand);
           }}
           key={index}
