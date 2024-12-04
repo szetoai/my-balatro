@@ -69,6 +69,7 @@ const NINECLUBS_IMG = "https://i.postimg.cc/C5hfcvLP/tile020.png";
 const QUEENDIAMONDS_IMG = "https://i.postimg.cc/0N1jttVY/tile036.png";
 // I *really* don't want to make a template for this.
 
+// Ordered in low->high rank values
 const cardImages = [
   // hearts
   "https://i.postimg.cc/1XQKscRw/tile000.png",
@@ -243,6 +244,7 @@ function GetCardImage(r, s) {
       s_ind = 39;
       break;
   }
+  // rank minus two bc ranks start at 2
   return cardImages[r - 2 + s_ind];
 }
 
@@ -258,6 +260,7 @@ function MakeDeck() {
   return deck;
 }
 
+// MakeHand needs the deck and the size of the hand
 interface HandProps {
   deck: object[];
   handsize: number;
@@ -270,14 +273,17 @@ function MakeHand({ deck, handsize }: HandProps) {
   const [activeHand, setActiveHand] = useState(Array);
   const [hand, setHand] = useState(Array);
   let card = -1;
-  if (hand.length === 0) {
+  // if the current hand has less than our handsize, draw cards
+  if (hand.length < handsize) {
     for (let x = 0; x < handsize; x++) {
       card = Math.floor(Math.random() * deck.length);
       hand.push(deck[card]);
       deck.splice(card, 1);
     }
+    // sort the hand
     setHand(hand.sort((a, b) => b.rank - a.rank));
   }
+  // return an image for each card in hand
   return (
     <div className="hand">
       {hand.map((item, index) => (
@@ -288,6 +294,7 @@ function MakeHand({ deck, handsize }: HandProps) {
           }
           onClick={() => {
             if (
+              // if this card isnt already in activehand and we have <5 cards in activehand
               !activeHand.some((x) => x.img === item.img) &&
               activeHand.length < 5
             ) {
