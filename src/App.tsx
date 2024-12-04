@@ -1,12 +1,17 @@
 import { useState } from "react";
 import "./style.css";
-import { MakeDeck, MakeHand } from "./components/Balatro";
+import { MakeDeck, MakeHand, HandInfo } from "./components/Balatro";
 
 function App() {
   const [startState, setStartState] = useState(false);
-  const [deckState, setDeckState] = useState(MakeDeck())
+  const [deckState, setDeckState] = useState(MakeDeck());
   if (startState) {
-    return <MakeHand deck={deckState} handsize={8} />;
+    return (
+      <>
+        <HandInfo />
+        <MakeHand deck={deckState} handsize={8} />
+      </>
+    );
   } else {
     return <Start isActive={startState} onPress={() => setStartState(true)} />;
   }

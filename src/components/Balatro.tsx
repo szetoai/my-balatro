@@ -266,7 +266,7 @@ interface HandProps {
   handsize: number;
 }
 
-// MakeHand: [List-of Card] PosInt-> [List-of Card]
+// MakeHand: [List-of Card] PosInt-> <div>
 // Creates a hand of a size based on the given PosInt
 // from the deck (which is represented by the given [List-of Card])
 function MakeHand({ deck, handsize }: HandProps) {
@@ -311,4 +311,15 @@ function MakeHand({ deck, handsize }: HandProps) {
   );
 }
 
-export { MakeDeck, MakeHand };
+// HandInfo: [List-of Card] -> <img>
+// Returns the info of the active hand based on given [List-of Card]
+function HandInfo() {
+  return (
+    <div className="container">
+      <h1 id="handName">Straight Flush</h1>
+      <img className="ui" id="handinfo" src="https://i.ibb.co/Qms23nz/handinfo.png"/>
+    </div>
+  )
+}
+
+export { MakeDeck, MakeHand, HandInfo };

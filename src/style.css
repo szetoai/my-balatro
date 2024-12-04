@@ -16,6 +16,7 @@ body {
   color: white;
 }
 
+/* UI Elements */
 .ui {
   display: block;
   margin-left: auto;
@@ -31,14 +32,30 @@ body {
   left: 395px;
 }
 
+/* Hand Info Box */
+#handinfo {
+  width: 250px;
+  margin-top: 25px;
+}
+
+/* Hand Info Box - Name */
+#handName {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -100%);
+}
+
+/* The Hand of Cards */
 .hand {
   display: flex;
   justify-content: center;
-  margin-top: 20%;
+  margin-top: 10%;
   gap: 20px;
   flex-wrap: wrap;
 }
 
+/* Active Hand */
 .active {
   display: flex;
   justify-content: center;
