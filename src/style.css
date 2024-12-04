@@ -15,6 +15,15 @@ body {
   margin-right: auto;
 }
 
+/* Top left text */
+.top-left {
+  position: absolute;
+  font-size: 500%;
+  rotate: -25deg;
+  top: 1%;
+  left: 36%;
+}
+
 .hand {
   display: flex;
   justify-content: center;
