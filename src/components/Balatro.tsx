@@ -276,6 +276,7 @@ function MakeHand({ deck, handsize }: HandProps) {
       hand.push(deck[card]);
       deck.splice(card, 1);
     }
+    setHand(hand.sort((a, b) => b.rank - a.rank));
   }
   return (
     <div className="hand">
@@ -286,7 +287,10 @@ function MakeHand({ deck, handsize }: HandProps) {
             activeHand.some((x) => x.img === item.img) ? "active" : "inactive"
           }
           onClick={() => {
-            if (!activeHand.some((x) => x.img === item.img) && activeHand.length < 5) {
+            if (
+              !activeHand.some((x) => x.img === item.img) &&
+              activeHand.length < 5
+            ) {
               setActiveHand([...activeHand, item]);
             } else {
               setActiveHand(activeHand.filter((x) => x.img !== item.img));
