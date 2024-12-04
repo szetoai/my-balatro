@@ -5,11 +5,18 @@ import { MakeDeck, MakeHand, HandInfo } from "./components/Balatro";
 function App() {
   const [startState, setStartState] = useState(false);
   const [deckState, setDeckState] = useState(MakeDeck());
+  const [handState, setHandState] = useState(Array);
+  const [ahandState, setAhandState] = useState(Array);
   if (startState) {
     return (
       <>
-        <HandInfo />
-        <MakeHand deck={deckState} handsize={8} />
+        <HandInfo ahand={ahandState} />
+        <MakeHand
+          oldHand={handState}
+          deck={deckState}
+          handsize={8}
+          updateAhand={(x) => setAhandState(x)}
+        />
       </>
     );
   } else {

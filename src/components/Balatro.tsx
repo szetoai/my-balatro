@@ -262,16 +262,18 @@ function MakeDeck() {
 
 // MakeHand needs the deck and the size of the hand
 interface HandProps {
+  oldHand: object[];
   deck: object[];
   handsize: number;
+  updateAHand: (item: object[]) => void;
 }
 
 // MakeHand: [List-of Card] PosInt-> <div>
 // Creates a hand of a size based on the given PosInt
 // from the deck (which is represented by the given [List-of Card])
-function MakeHand({ deck, handsize }: HandProps) {
+function MakeHand({ oldHand, deck, handsize, updateAhand }: HandProps) {
   const [activeHand, setActiveHand] = useState(Array);
-  const [hand, setHand] = useState(Array);
+  const [hand, setHand] = useState(oldHand);
   let card = -1;
   // if the current hand has less than our handsize, draw cards
   if (hand.length < handsize) {
@@ -293,16 +295,21 @@ function MakeHand({ deck, handsize }: HandProps) {
             activeHand.some((x) => x.img === item.img) ? "active" : "inactive"
           }
           onClick={() => {
+            let newHand;
             if (
               // if this card isnt already in activehand and we have <5 cards in activehand
               !activeHand.some((x) => x.img === item.img) &&
               activeHand.length < 5
             ) {
-              setActiveHand([...activeHand, item]);
+              // add the card into the hand then sort the hand
+              newHand = [...activeHand, item].sort((a, b) => b.rank - a.rank);
             } else {
-              setActiveHand(activeHand.filter((x) => x.img !== item.img));
+              // remove the card from the active hand (if it exists)
+              newHand = activeHand.filter((x) => x.img !== item.img);
             }
-            setHand(hand);
+            // update the active hand and the parents active hand
+            setActiveHand(newHand);
+            updateAhand(newHand);
           }}
           key={index}
         ></img>
@@ -311,15 +318,154 @@ function MakeHand({ deck, handsize }: HandProps) {
   );
 }
 
+// --------------------Hand Type Checks--------------------------------
+// A Kind is one of:
+// - 4
+// - 3
+// - 2
+// and represents the number of cards of the same rank needed for a "of a kind" hand in Balatro
+// ("2 of a kind" is known as a Pair)
+// Examples:
+const FourKind = 4;
+const ThreeKind = 3;
+const TwoKind = 2;
+// Template
+function KindTemp(kind) {
+  switch (kind) {
+    case 4:
+      break;
+    case 3:
+      break;
+    case 2:
+      break;
+  }
+}
+
+// OfAKind: [List-of Rank] Kind -> Boolean
+// Determines if a given [List-of Rank] contains the given Kind number of cards of the same rank.
+function OfAKind(ranks, kind) {
+  return (
+    ranks
+      // map over each item, determine if there exists another of the same rank in the ranks
+      .map(
+        (item, index) =>
+          // checks if there are at least kind minus 1 other cards of the same rank in ranks
+          ranks.toSpliced(index, 1).filter((x) => x === item).length >= kind - 1
+      )
+      .some((bool) => bool === true)
+  );
+}
+
+// FullHouse: [List-of Rank] -> Boolean
+// Determines if the given [List-of Rank] is a Full House,
+// meaning that it contains a 3 of a kind and a Pair (exclusive to each other)
+function FullHouse(ranks) {
+  if (OfAKind(ranks, 3)) {
+    // filters the ranks such that only the ranks that arent a part of the 3 of a kind are left.
+    const nonThreeKind = ranks.filter(
+      (x) => !(ranks.filter((y) => y === x).length === 3)
+    );
+    // check if the remaining 2 cards are a pair
+    return OfAKind(nonThreeKind, 2);
+  } else return false;
+}
+
+// Flush: [List-of Suit] -> Boolean
+// Determines if the given [List-of Suit] is a flush,
+// meaning that it contains 5 cards of the same suit.
+function Flush(suits) {
+  return suits.length === 5 && suits.every((x) => x === suits[0]);
+}
+
+// Straight: [List-of Rank] -> Boolean
+// Determines if a given [List-of Rank] is a Straight,
+// meaning the elements are all consecutive. Assumes the list is sorted.
+// Ace counts as 14 and 1.
+function Straight(ranks) {
+  if (ranks[0] === 14 && ranks[1] === 5) {
+    return Straight(ranks.splice(0, 1));
+  } else {
+    return ranks
+      .map((item, index) => index === 4 || ranks[index + 1] === item - 1)
+      .every((item) => item === true);
+  }
+}
+
+// TwoPair: [List-of Rank] -> Boolean
+// Determines if a given [List-of Rank] is a Two Pair,
+// meaning the list contains 2 Pairs.
+function TwoPair(ranks) {
+  return (
+    ranks
+      // map over each item, determine if there exists another of the same rank in the ranks
+      .map((item, index) =>
+        ranks.toSpliced(index, 1).some((other) => other === item)
+      )
+      // filter ranks such that it only contains the ranks that have a pair
+      // if there are 4 cards that have a match, it is a two pair
+      // (in the real game, 4 of a kind will be checked before two pair)
+      .filter((bool) => bool === true).length /
+      2 ===
+    2
+  );
+}
+
+// BestHand: [List-of Card] -> String
+// Returns the best hand that a given [List-of Card] contains
+function BestHand(ahand) {
+  if (ahand.length === 0) {
+    return "";
+  } else {
+    const ranks = ahand.map((item) => item.rank);
+    const suits = ahand.map((item) => item.suit);
+
+    if (Straight(ranks) && Flush(ranks)) {
+      return "Straight Flush";
+    } else if (OfAKind(ranks, 4)) {
+      return "Four of a Kind";
+    } else if (FullHouse(ranks)) {
+      return "Full House";
+    } else if (Flush(suits)) {
+      return "Flush";
+    } else if (Straight(ranks)) {
+      return "Straight";
+    } else if (OfAKind(ranks, 3)) {
+      return "Three of a Kind";
+    } else if (TwoPair(ranks)) {
+      return "Two Pair";
+    } else if (OfAKind(ranks, 2)) {
+      return "Pair";
+    } else return "High Card";
+  }
+}
+
+/*
+if (straight(ranks) && flush(suits)) {
+    // royal flush check - if the 2nd card is a king, its a royal flush
+    if (ranks[1] === 13) {
+      return "Royal Flush";
+    } else return "Straight Flush";
+  }
+*/
+
+interface HandInfoProps {
+  ahand: object[];
+}
+
 // HandInfo: [List-of Card] -> <img>
 // Returns the info of the active hand based on given [List-of Card]
-function HandInfo() {
+function HandInfo({ ahand }: HandInfoProps) {
+  const handType = BestHand(ahand);
   return (
     <div className="container">
-      <h1 id="handName">Straight Flush</h1>
-      <img className="ui" id="handinfo" src="https://i.ibb.co/Qms23nz/handinfo.png"/>
+      <h1 id="handName">{handType}</h1>
+      <img
+        className="ui"
+        id="handinfo"
+        src="https://i.ibb.co/Qms23nz/handinfo.png"
+      />
     </div>
-  )
+  );
 }
 
 export { MakeDeck, MakeHand, HandInfo };
