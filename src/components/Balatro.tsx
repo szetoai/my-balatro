@@ -267,13 +267,15 @@ interface HandProps {
 // Creates a hand of a size based on the given PosInt
 // from the deck (which is represented by the given [List-of Card])
 function MakeHand({ deck, handsize }: HandProps) {
-  const hand = [];
   const [activeHand, setActiveHand] = useState(Array);
+  const [hand, setHand] = useState(Array);
   let card = -1;
-  for (let x = 0; x < handsize; x++) {
-    card = Math.floor(Math.random() * deck.length);
-    hand.push(deck[card]);
-    deck.splice(card, 1);
+  if (hand.length === 0) {
+    for (let x = 0; x < handsize; x++) {
+      card = Math.floor(Math.random() * deck.length);
+      hand.push(deck[card]);
+      deck.splice(card, 1);
+    }
   }
   return (
     <div className="hand">
@@ -285,6 +287,7 @@ function MakeHand({ deck, handsize }: HandProps) {
           }
           onClick={() => {
             setActiveHand([...activeHand, item]);
+            setHand(hand);
           }}
           key={index}
         ></img>

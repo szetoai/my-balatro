@@ -4,8 +4,9 @@ import { MakeDeck, MakeHand } from "./components/Balatro";
 
 function App() {
   const [startState, setStartState] = useState(false);
+  const [deckState, setDeckState] = useState(MakeDeck())
   if (startState) {
-    return <MakeHand deck={MakeDeck()} handsize={8} />;
+    return <MakeHand deck={deckState} handsize={8} />;
   } else {
     return <Start isActive={startState} onPress={() => setStartState(true)} />;
   }
