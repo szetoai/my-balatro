@@ -9,6 +9,13 @@ body {
   font-family: "balatro", 'Times New Roman', Times, serif;
 }
 
+/* Container holding the image and the text */
+.container {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
 .ui {
   display: block;
   margin-left: auto;
@@ -18,10 +25,10 @@ body {
 /* Top left text */
 .top-left {
   position: absolute;
-  font-size: 500%;
+  font-size: 600%;
   rotate: -25deg;
-  top: 1%;
-  left: 36%;
+  top: -3px;
+  left: 395px;
 }
 
 .hand {
