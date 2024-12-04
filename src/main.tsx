@@ -1,10 +1,7 @@
 import { createRoot } from "react-dom/client";
+import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import "./style.css";
-import Start from "./components/StartButton";
+import App from "./App";
 
-createRoot(document.getElementById("root")!).render(
-  <>
-  <Start />
-  </>
-);
+createRoot(document.getElementById("root")!).render(<App />);

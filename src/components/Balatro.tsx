@@ -269,7 +269,6 @@ interface HandProps {
 function MakeHand({ deck, handsize }: HandProps) {
   const hand = [];
   const [activeHand, setActiveHand] = useState(Array);
-  console.log(activeHand);
   let card = -1;
   for (let x = 0; x < handsize; x++) {
     card = Math.floor(Math.random() * deck.length);
