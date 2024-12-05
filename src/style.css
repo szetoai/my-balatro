@@ -46,6 +46,12 @@ body {
   transform: translate(-50%, -100%);
 }
 
+/* Discard Button */
+#discard {
+  width: 130px;
+  transform: translate(100px, 50px);
+}
+
 /* The Hand of Cards */
 .hand {
   display: flex;

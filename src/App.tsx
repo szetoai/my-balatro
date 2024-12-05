@@ -1,39 +1,42 @@
 import { useState } from "react";
 import "./style.css";
-import { MakeDeck, MakeHand, HandInfo } from "./components/Balatro";
+import { Start } from "./components/Start";
+import { Discard } from "./components/Discard";
+import { MakeDeck, MakeHand, HandInfo } from "./components/Hand";
 
 function App() {
   const [startState, setStartState] = useState(false);
   const [deckState, setDeckState] = useState(MakeDeck());
   const [handState, setHandState] = useState(Array);
   const [ahandState, setAhandState] = useState(Array);
+  console.log(handState);
   if (startState) {
     return (
       <>
         <HandInfo ahand={ahandState} />
+        <Discard
+          onPress={
+            // updateHandDiscard: () -> void
+            // Updates the hand so that it contains only the cards that arent in the active hand
+            function updateHandDiscard() {
+            setHandState(
+              handState.filter((x) => !ahandState.some((y) => y.img === x.img))
+            );
+            setAhandState(Array);
+          }}
+        />
         <MakeHand
           oldHand={handState}
           deck={deckState}
           handsize={8}
-          updateAhand={(x) => setAhandState(x)}
+          updateHand={(x) => setHandState(x)}
+          updateAhand={(y) => setAhandState(y)}
+          updateDeck={(z) => setDeckState(z)}
         />
       </>
     );
   } else {
     return <Start isActive={startState} onPress={() => setStartState(true)} />;
-  }
-}
-
-function Start({ isActive, onPress }) {
-  if (!isActive) {
-    return (
-      <img
-        className="ui"
-        src="https://i.ibb.co/26vt9qk/markup-1000008762.png"
-        height="75px"
-        onClick={onPress}
-      />
-    );
   }
 }
 

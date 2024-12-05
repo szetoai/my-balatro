@@ -265,25 +265,37 @@ interface HandProps {
   oldHand: object[];
   deck: object[];
   handsize: number;
-  updateAHand: (item: object[]) => void;
+  updateHand: (item: object[]) => void;
+  updateAhand: (item: object[]) => void;
+  updateDeck: (item: object[]) => void;
 }
 
-// MakeHand: [List-of Card] PosInt-> <div>
+// MakeHand: [List-of Card] PosInt [() => void] -> <div>
 // Creates a hand of a size based on the given PosInt
 // from the deck (which is represented by the given [List-of Card])
-function MakeHand({ oldHand, deck, handsize, updateAhand }: HandProps) {
+function MakeHand({
+  oldHand,
+  deck,
+  handsize,
+  updateHand,
+  updateAhand,
+  updateDeck,
+}: HandProps) {
   const [activeHand, setActiveHand] = useState(Array);
   const [hand, setHand] = useState(oldHand);
-  let card = -1;
   // if the current hand has less than our handsize, draw cards
   if (hand.length < handsize) {
     for (let x = 0; x < handsize; x++) {
-      card = Math.floor(Math.random() * deck.length);
+      const card = Math.floor(Math.random() * deck.length);
       hand.push(deck[card]);
       deck.splice(card, 1);
     }
-    // sort the hand
-    setHand(hand.sort((a, b) => b.rank - a.rank));
+    // sort the hand and update local and parent
+    const newHand = hand.sort((a, b) => b.rank - a.rank);
+    setHand(newHand);
+    updateHand(newHand);
+    // update parent deck with spliced deck
+    updateDeck(deck);
   }
   // return an image for each card in hand
   return (
@@ -295,21 +307,21 @@ function MakeHand({ oldHand, deck, handsize, updateAhand }: HandProps) {
             activeHand.some((x) => x.img === item.img) ? "active" : "inactive"
           }
           onClick={() => {
-            let newHand;
+            let newAhand;
             if (
               // if this card isnt already in activehand and we have <5 cards in activehand
               !activeHand.some((x) => x.img === item.img) &&
               activeHand.length < 5
             ) {
               // add the card into the hand then sort the hand
-              newHand = [...activeHand, item].sort((a, b) => b.rank - a.rank);
+              newAhand = [...activeHand, item].sort((a, b) => b.rank - a.rank);
             } else {
               // remove the card from the active hand (if it exists)
-              newHand = activeHand.filter((x) => x.img !== item.img);
+              newAhand = activeHand.filter((x) => x.img !== item.img);
             }
             // update the active hand and the parents active hand
-            setActiveHand(newHand);
-            updateAhand(newHand);
+            setActiveHand(newAhand);
+            updateAhand(newAhand);
           }}
           key={index}
         ></img>
