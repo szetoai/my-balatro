@@ -19,16 +19,18 @@ function App() {
             // updateHandDiscard: () -> void
             // Updates the hand so that it contains only the cards that arent in the active hand
             function updateHandDiscard() {
-            setHandState(
-              handState.filter((x) => !ahandState.some((y) => y.img === x.img))
-            );
-            setAhandState(Array);
-          }}
+              const newHandState = handState.filter(
+                (x) => !ahandState.some((y) => y.img === x.img)
+              );
+              setHandState(newHandState);
+              setAhandState([]);
+            }
+          }
         />
         <MakeHand
           oldHand={handState}
+          ahand={ahandState}
           deck={deckState}
-          handsize={8}
           updateHand={(x) => setHandState(x)}
           updateAhand={(y) => setAhandState(y)}
           updateDeck={(z) => setDeckState(z)}

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // card images:
 // 0-12 are hearts
@@ -262,9 +262,9 @@ function MakeDeck() {
 
 // MakeHand needs the deck and the size of the hand
 interface HandProps {
-  oldHand: object[];
   deck: object[];
-  handsize: number;
+  oldHand: object[];
+  ahand: object[];
   updateHand: (item: object[]) => void;
   updateAhand: (item: object[]) => void;
   updateDeck: (item: object[]) => void;
@@ -274,29 +274,36 @@ interface HandProps {
 // Creates a hand of a size based on the given PosInt
 // from the deck (which is represented by the given [List-of Card])
 function MakeHand({
-  oldHand,
   deck,
-  handsize,
+  oldHand,
+  ahand,
   updateHand,
   updateAhand,
   updateDeck,
 }: HandProps) {
-  const [activeHand, setActiveHand] = useState(Array);
-  const [hand, setHand] = useState(oldHand);
-  // if the current hand has less than our handsize, draw cards
-  if (hand.length < handsize) {
-    for (let x = 0; x < handsize; x++) {
-      const card = Math.floor(Math.random() * deck.length);
-      hand.push(deck[card]);
-      deck.splice(card, 1);
+  const [activeHand, setActiveHand] = useState(ahand);
+  const [hand, setHand] = useState(Array);
+  // when our hand changes, update its rendering
+  useEffect(() => {
+    setHand(oldHand);
+    setActiveHand(ahand);
+    // if the current hand has less than our handsize, draw cards
+    if (hand.length < 8) {
+      let newHand = [...hand];
+      const newHandInitLength = newHand.length;
+      for (let x = 0; x < 8 - newHandInitLength; x++) {
+        const card = Math.floor(Math.random() * deck.length);
+        newHand = [...newHand, deck[card]];
+        deck.splice(card, 1);
+      }
+      // sort the hand and update local and parent
+      newHand = newHand.sort((a, b) => b.rank - a.rank);
+      setHand(newHand);
+      updateHand(newHand);
+      // update parent deck with spliced deck
+      updateDeck(deck);
     }
-    // sort the hand and update local and parent
-    const newHand = hand.sort((a, b) => b.rank - a.rank);
-    setHand(newHand);
-    updateHand(newHand);
-    // update parent deck with spliced deck
-    updateDeck(deck);
-  }
+  }, [oldHand, hand]);
   // return an image for each card in hand
   return (
     <div className="hand">
