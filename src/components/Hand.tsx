@@ -282,14 +282,13 @@ function MakeHand({
   updateDeck,
 }: HandProps) {
   const [activeHand, setActiveHand] = useState(ahand);
-  const [hand, setHand] = useState(Array);
+  let newHand = [...oldHand];
   // when our hand changes, update its rendering
   useEffect(() => {
-    setHand(oldHand);
     setActiveHand(ahand);
     // if the current hand has less than our handsize, draw cards
-    if (hand.length < 8) {
-      let newHand = [...hand];
+    if (oldHand.length < 8) {
+      newHand = [...oldHand]
       const newHandInitLength = newHand.length;
       for (let x = 0; x < 8 - newHandInitLength; x++) {
         const card = Math.floor(Math.random() * deck.length);
@@ -298,16 +297,15 @@ function MakeHand({
       }
       // sort the hand and update local and parent
       newHand = newHand.sort((a, b) => b.rank - a.rank);
-      setHand(newHand);
       updateHand(newHand);
       // update parent deck with spliced deck
       updateDeck(deck);
     }
-  }, [oldHand, hand]);
+  }, [oldHand]);
   // return an image for each card in hand
   return (
     <div className="hand">
-      {hand.map((item, index) => (
+      {newHand.map((item, index) => (
         <img
           src={item.img}
           className={
