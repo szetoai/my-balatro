@@ -8,7 +8,14 @@ function HandScore(ahand) {
     return 0;
   } else {
     return ahand.reduceRight((total, card) => {
-      return total + card.rank;
+      const rank = card.rank;
+      let cardscore;
+      if (rank === 14) {
+        cardscore = 11;
+      } else if (rank >= 10) {
+        cardscore = 10;
+      } else cardscore = rank;
+      return total + cardscore;
     }, 0);
   }
 }
