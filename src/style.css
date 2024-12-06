@@ -42,20 +42,21 @@ h1 {
 /* Round Score - Box */
 #roundScore {
   width: 350px;
+  transform: translateY(-450px);
+  margin-bottom: -435px;
 }
 
 /* Round Score - Actual Number */
 #roundScoreNumber {
   position: absolute;
-  top: 13px;
-  left: 640px;
+  top: -436px;
+  left: 633px;
 }
 
 /* Hand Info Box */
 #handinfo {
   width: 250px;
-  margin-top: 25px;
-  margin-bottom: -325px;
+  margin-bottom: 15px;
 }
 
 /* Hand Info Box - Name */
@@ -95,6 +96,19 @@ h1 {
 #discardCount {
   transform: translate(127px, -262px);
   color: #e25045;
+}
+
+/* Ante Number */
+#ante {
+  transform: translate(27px, -158px);
+  font-size: 185%;
+  color: #fb8e02;
+}
+
+/* Round Number */
+#round {
+  transform: translate(130px, -210px);
+  color: #fb8e02;
 }
 
 /* Play Hand Button */

@@ -2,19 +2,23 @@ import { useState } from "react";
 import "./style.css";
 import { Start } from "./components/Start";
 import { MakeDeck, MakeHand, HandInfo } from "./components/Hand";
-import { InfoPanel } from "./components/GameInfo";
+import { InfoPanel } from "./components/RoundInfo";
 import { Score } from "./components/RoundScore";
 import { PlayHandButton } from "./components/PlayHand";
 import { Discard } from "./components/Discard";
 
+const AnteBaseValues = [100, 300, 800, 2000, 5000, 11000, 20000, 35000, 50000];
+
 function App() {
   const [startState, setStartState] = useState(false); // Whether the game has started or not
+  const [handNum, setHandNum] = useState(4); // Number of hands
+  const [discardNum, setDiscardNum] = useState(4); // Number of discards
+  const [ante, setAnte] = useState(1); // Ante Number
+  const [round, setRound] = useState(1); // Round Number
+  const [roundScore, setRoundScore] = useState(0); // Current Score
   const [deckState, setDeckState] = useState(MakeDeck()); // Deck
   const [handState, setHandState] = useState(Array); // Hand
   const [ahandState, setAhandState] = useState(Array); // Active hand
-  const [handNum, setHandNum] = useState(4); // Number of hands
-  const [discardNum, setDiscardNum] = useState(4); // Number of discards
-  const [roundScore, setRoundScore] = useState(0);
   // updateHand: () -> void
   // Updates the hand so that it contains only the cards that arent in the active hand
   const updateHand = () => {
@@ -24,13 +28,31 @@ function App() {
     setHandState(newHandState);
     setAhandState([]);
   };
-  console.log(handNum);
+  // reset: () -> void
+  // Resets the deck, hand, active hand, number of hands, number of discards, and current score
+  // back to initial values
+  const reset = () => {
+    setDeckState(MakeDeck());
+    setHandState(Array);
+    setAhandState(Array);
+    setHandNum(4);
+    setDiscardNum(4);
+    setRoundScore(0);
+  };
   if (startState) {
     return (
       <>
-        <Score num={roundScore} />
+        <div className="container">
+          <InfoPanel
+            hands={handNum}
+            discards={discardNum}
+            ante={ante}
+            round={round}
+          />
+          <Score num={roundScore} />
+        </div>
         <HandInfo ahand={ahandState} />
-        <InfoPanel hands={handNum} discards={discardNum} />
+
         <PlayHandButton
           handCount={handNum}
           ahand={ahandState}
