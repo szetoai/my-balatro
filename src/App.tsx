@@ -42,9 +42,12 @@ function App() {
     setRoundScore(0);
   };
   if (startState) {
+    // Goal and Round winning logic
     const curGoal = AnteBaseValues[ante] * (1 + 0.5 * ((round - 1) % 3));
+    const curReward = 3 + ((round - 1) % 3);
     if (roundScore >= curGoal) {
       const newRound = round + 1;
+      setMoney(money + curReward);
       setRound(newRound);
       if (newRound % 3 == 1) {
         setAnte(ante + 1);
@@ -54,7 +57,7 @@ function App() {
     return (
       <>
         <div className="container">
-          <RoundGoal goal={curGoal} reward={3 + ((round - 1) % 3)} />
+          <RoundGoal goal={curGoal} reward={curReward} />
           <InfoPanel
             hands={handNum}
             discards={discardNum}
