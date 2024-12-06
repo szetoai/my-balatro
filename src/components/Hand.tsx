@@ -301,7 +301,7 @@ function MakeHand({
       // update parent deck with spliced deck
       updateDeck(deck);
     }
-  }, [oldHand]);
+  }, [oldHand, ahand]);
   // return an image for each card in hand
   return (
     <div className="hand">

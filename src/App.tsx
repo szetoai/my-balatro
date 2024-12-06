@@ -34,17 +34,26 @@ function App() {
   // back to initial values
   const reset = () => {
     setDeckState(MakeDeck());
-    setHandState(Array);
-    setAhandState(Array);
+    setHandState([]);
+    setAhandState([]);
     setHandNum(4);
     setDiscardNum(4);
     setRoundScore(0);
   };
   if (startState) {
+    const curGoal = AnteBaseValues[ante] * (1 + 0.5 * ((round - 1) % 3));
+    if (roundScore >= curGoal) {
+      const newRound = round + 1;
+      setRound(newRound);
+      if (newRound % 3 == 1) {
+        setAnte(ante + 1);
+      }
+      reset();
+    }
     return (
       <>
         <div className="container">
-          <RoundGoal goal={AnteBaseValues[ante] * (0.5 + 0.5 * (round % 3))} />
+          <RoundGoal goal={curGoal} />
           <InfoPanel
             hands={handNum}
             discards={discardNum}
