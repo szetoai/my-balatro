@@ -36,6 +36,7 @@ body {
 #handinfo {
   width: 250px;
   margin-top: 25px;
+  margin-bottom: -130px;
 }
 
 /* Hand Info Box - Name */
@@ -44,6 +45,12 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -100%);
+}
+
+/* Game Info Box */
+#infopanel {
+  width: 180px;
+  transform: translateX(200%);
 }
 
 /* Discard Button */

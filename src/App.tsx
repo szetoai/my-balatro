@@ -1,19 +1,23 @@
 import { useState } from "react";
 import "./style.css";
 import { Start } from "./components/Start";
-import { Discard } from "./components/Discard";
 import { MakeDeck, MakeHand, HandInfo } from "./components/Hand";
+import { InfoPanel } from "./components/GameInfo";
+import { Discard } from "./components/Discard";
 
 function App() {
-  const [startState, setStartState] = useState(false);
-  const [deckState, setDeckState] = useState(MakeDeck());
-  const [handState, setHandState] = useState(Array);
-  const [ahandState, setAhandState] = useState(Array);
-  console.log(handState);
+  const [startState, setStartState] = useState(false); // Whether the game has started or not
+  const [deckState, setDeckState] = useState(MakeDeck()); // Deck
+  const [handState, setHandState] = useState(Array); // Hand
+  const [ahandState, setAhandState] = useState(Array); // Active hand
+  const [handNum, setHandNum] = useState(4); // Number of hands
+  const [discardNum, setDiscardNum] = useState(4); // Number of discards
+  console.log(discardNum);
   if (startState) {
     return (
       <>
         <HandInfo ahand={ahandState} />
+        <InfoPanel discards={discardNum} />
         <Discard
           onPress={
             // updateHandDiscard: () -> void
@@ -24,6 +28,7 @@ function App() {
               );
               setHandState(newHandState);
               setAhandState([]);
+              setDiscardNum(discardNum - 1);
             }
           }
         />
