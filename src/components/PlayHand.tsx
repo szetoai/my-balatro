@@ -41,6 +41,7 @@ function PlayHandButton({
       id="playHand"
       src="https://i.ibb.co/cgwMhHw/playhandbutton.png"
       onClick={() => {
+        console.log("click");
         if (handCount > 0) {
           updateScore(score);
           updateHand();

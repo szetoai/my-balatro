@@ -532,14 +532,14 @@ function HandInfo({ ahand }: HandInfoProps) {
   const mult = MultVal(handType);
   return (
     <div className="container">
-      <h1 id="handName">{handType}</h1>
-      <h1 id="chipCount">{chips}</h1>
-      <h1 id="multCount">{mult}</h1>
       <img
         className="ui"
         id="handinfo"
         src="https://i.ibb.co/Qms23nz/handinfo.png"
       />
+      <h1 id="handName">{handType}</h1>
+      <h1 id="chipCount">{chips}</h1>
+      <h1 id="multCount">{mult}</h1>
     </div>
   );
 }
