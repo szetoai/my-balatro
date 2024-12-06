@@ -4,7 +4,7 @@
 }
 
 #logo {
-  margin-bottom: 75px;
+  margin-bottom: 10px;
 }
 
 body {
@@ -42,7 +42,6 @@ h1 {
 /* Round Score - Box */
 #roundScore {
   width: 350px;
-  margin-bottom: -125px;
 }
 
 /* Round Score - Actual Number */
@@ -56,7 +55,7 @@ h1 {
 #handinfo {
   width: 250px;
   margin-top: 25px;
-  margin-bottom: -200px;
+  margin-bottom: -325px;
 }
 
 /* Hand Info Box - Name */

@@ -28,8 +28,8 @@ function App() {
   if (startState) {
     return (
       <>
-        <HandInfo ahand={ahandState} />
         <Score num={roundScore} />
+        <HandInfo ahand={ahandState} />
         <InfoPanel hands={handNum} discards={discardNum} />
         <PlayHandButton
           handCount={handNum}
