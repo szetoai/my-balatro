@@ -3,6 +3,10 @@
   src: url("./assets/m6x11.ttf");
 }
 
+#logo {
+  margin-bottom: 75px;
+}
+
 body {
   background-image: url("https://preview.redd.it/balatro-main-menu-image-without-ui-elements-v0-yl1be0ojeevc1.jpg?width=2560&format=pjpg&auto=webp&s=58e6d55652cc252b1968c3d1df6b37c1a8162011");
   background-size: 100%;
@@ -35,6 +39,19 @@ h1 {
   left: 395px;
 }
 
+/* Round Score - Box */
+#roundScore {
+  width: 350px;
+  margin-bottom: -125px;
+}
+
+/* Round Score - Actual Number */
+#roundScoreNumber {
+  position: absolute;
+  top: 13px;
+  left: 640px;
+}
+
 /* Hand Info Box */
 #handinfo {
   width: 250px;
@@ -65,7 +82,7 @@ h1 {
 }
 
 /* Game Info Box */
-#infopanel {
+#infoPanel {
   width: 180px;
 }
 

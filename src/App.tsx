@@ -3,6 +3,7 @@ import "./style.css";
 import { Start } from "./components/Start";
 import { MakeDeck, MakeHand, HandInfo } from "./components/Hand";
 import { InfoPanel } from "./components/GameInfo";
+import { Score } from "./components/RoundScore";
 import { Discard } from "./components/Discard";
 
 function App() {
@@ -12,10 +13,12 @@ function App() {
   const [ahandState, setAhandState] = useState(Array); // Active hand
   const [handNum, setHandNum] = useState(4); // Number of hands
   const [discardNum, setDiscardNum] = useState(4); // Number of discards
+  const [roundScore, setRoundScore] = useState(0);
   if (startState) {
     return (
       <>
         <HandInfo ahand={ahandState} />
+        <Score num={roundScore} />
         <InfoPanel discards={discardNum} />
         <Discard
           discards={discardNum}
