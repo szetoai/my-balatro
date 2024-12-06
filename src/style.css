@@ -86,9 +86,15 @@ h1 {
   width: 180px;
 }
 
+/* Hand Count */
+#handCount {
+  transform: translate(40px, -206px);
+  color: #0985dc;
+}
+
 /* Discard Count */
 #discardCount {
-  transform: translate(127px, -205px);
+  transform: translate(127px, -262px);
   color: #e25045;
 }
 

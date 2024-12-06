@@ -12,7 +12,7 @@ function Discard({ discards, onPress }: DiscardProps) {
       className="ui"
       id="discard"
       src="https://i.ibb.co/brPrQzd/discardbutton.png"
-      onClick={function discardPress() {
+      onClick={() => {
         if (discards > 0) {
           onPress();
         }

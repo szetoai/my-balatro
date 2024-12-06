@@ -23,20 +23,28 @@ function App() {
     );
     setHandState(newHandState);
     setAhandState([]);
-    setDiscardNum(discardNum - 1);
   };
+  console.log(handNum);
   if (startState) {
     return (
       <>
         <HandInfo ahand={ahandState} />
         <Score num={roundScore} />
-        <InfoPanel discards={discardNum} />
+        <InfoPanel hands={handNum} discards={discardNum} />
         <PlayHandButton
+          handCount={handNum}
           ahand={ahandState}
           updateScore={(x) => setRoundScore(x + roundScore)}
           updateHand={updateHand}
+          updateHandCount={() => setHandNum(handNum - 1)}
         />
-        <Discard discards={discardNum} onPress={updateHand} />
+        <Discard
+          discards={discardNum}
+          onPress={() => {
+            updateHand();
+            setDiscardNum(discardNum - 1);
+          }}
+        />
         <MakeHand
           oldHand={handState}
           ahand={ahandState}

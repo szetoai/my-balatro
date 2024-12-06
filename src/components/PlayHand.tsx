@@ -15,15 +15,23 @@ function HandScore(ahand) {
 }
 
 interface PlayHandButtonProps {
+  handCount: number;
   ahand: object[];
   updateScore: (item: number) => void;
   updateHand: (item: void) => void;
+  updateHandCount: (item: void) => void;
 }
 
 // PlayHandButton: [List-of Card] -> img
 // Renders the play hand button, which calculates the new player score
 // based on the given [List-of Card] when clicked.
-function PlayHandButton({ ahand, updateScore, updateHand }: PlayHandButtonProps) {
+function PlayHandButton({
+  handCount,
+  ahand,
+  updateScore,
+  updateHand,
+  updateHandCount,
+}: PlayHandButtonProps) {
   const handType = BestHand(ahand);
   const chips = ChipVal(handType) + HandScore(ahand);
   const mult = MultVal(handType);
@@ -34,8 +42,11 @@ function PlayHandButton({ ahand, updateScore, updateHand }: PlayHandButtonProps)
       id="playHand"
       src="https://i.ibb.co/cgwMhHw/playhandbutton.png"
       onClick={() => {
-        updateScore(score);
-        updateHand();
+        if (handCount > 0) {
+          updateScore(score);
+          updateHand();
+          updateHandCount();
+        }
       }}
     />
   );
