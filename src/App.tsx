@@ -19,7 +19,8 @@ function App() {
   const [roundScore, setRoundScore] = useState(0); // Current Score
   const [deckState, setDeckState] = useState(MakeDeck()); // Deck
   const [handState, setHandState] = useState(Array); // Hand
-  const [ahandState, setAhandState] = useState(Array); // Active hand]
+  const [ahandState, setAhandState] = useState(Array); // Active hand
+  const [money, setMoney] = useState(0);
   // updateHand: () -> void
   // Updates the hand so that it contains only the cards that arent in the active hand
   const updateHand = () => {
@@ -53,10 +54,11 @@ function App() {
     return (
       <>
         <div className="container">
-          <RoundGoal goal={curGoal} />
+          <RoundGoal goal={curGoal} reward={3 + ((round - 1) % 3)} />
           <InfoPanel
             hands={handNum}
             discards={discardNum}
+            money={money}
             ante={ante}
             round={round}
           />

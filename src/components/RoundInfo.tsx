@@ -1,6 +1,7 @@
 interface InfoPanelProps {
   hands: number;
   discards: number;
+  money: number;
   ante: number;
   round: number;
 }
@@ -8,7 +9,7 @@ interface InfoPanelProps {
 // InfoPanel: Number -> img
 // Returns an image that displays:
 // - the current number of discards remaining
-function InfoPanel({hands, discards, ante, round}: InfoPanelProps) {
+function InfoPanel({hands, discards, ante, round, money}: InfoPanelProps) {
   return (
     <div className="container">
       <img
@@ -17,6 +18,7 @@ function InfoPanel({hands, discards, ante, round}: InfoPanelProps) {
       />
       <h1 id="handCount">{hands}</h1>
       <h1 id="discardCount">{discards}</h1>
+      <h1 id="money">{money}</h1>
       <h1 id="ante">{ante}</h1>
       <h1 id="round">{round}</h1>
     </div>

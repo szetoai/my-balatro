@@ -42,13 +42,20 @@ h1 {
 /* Round Goal Box */
 #roundGoal {
   width: 200px;
-  margin-bottom: -40px;
+  margin-bottom: -90px;
 }
 
 /* Round Goal Box - Number */
 #roundGoalChips {
-  transform: translate(45px, -40px);
+  transform: translate(45px, 3px);
   color: #f64e44;
+}
+
+/* Round Goal Box - Reward */
+#reward {
+  transform: translate(110px, -8px);
+  font-size: 200%;
+  color: #f1ae55;
 }
 
 /* Round Info Box */
@@ -69,30 +76,36 @@ h1 {
   color: #e25045;
 }
 
+/* Money */
+#money {
+  transform: translate(52px, -128px);
+  color: #f1ae55;
+}
+
 /* Ante Number */
 #ante {
-  transform: translate(27px, -38px);
+  transform: translate(27px, -93px);
   font-size: 185%;
   color: #fb8e02;
 }
 
 /* Round Number */
 #round {
-  transform: translate(130px, -88px);
+  transform: translate(130px, -145px);
   color: #fb8e02;
 }
 
 /* Round Score - Box */
 #roundScore {
   width: 350px;
-  transform: translateY(-450px);
-  margin-bottom: -400px;
+  transform: translateY(-510px);
+  margin-bottom: -460px;
 }
 
 /* Round Score - Actual Number */
 #roundScoreNumber {
   position: absolute;
-  top: -436px;
+  top: -496px;
   left: 633px;
 }
 
