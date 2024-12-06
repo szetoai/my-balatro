@@ -1,4 +1,5 @@
 interface DiscardProps {
+  
   discards: number;
   onPress: () => void;
 }

@@ -64,8 +64,10 @@ function App() {
         <Discard
           discards={discardNum}
           onPress={() => {
-            updateHand();
-            setDiscardNum(discardNum - 1);
+            if (ahandState.length > 0) {
+              updateHand();
+              setDiscardNum(discardNum - 1);
+            }
           }}
         />
         <MakeHand

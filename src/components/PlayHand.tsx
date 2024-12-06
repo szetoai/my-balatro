@@ -42,7 +42,7 @@ function PlayHandButton({
       src="https://i.ibb.co/cgwMhHw/playhandbutton.png"
       onClick={() => {
         console.log("click");
-        if (handCount > 0) {
+        if (handCount > 0 && ahand.length > 0) {
           updateScore(score);
           updateHand();
           updateHandCount();
