@@ -288,7 +288,7 @@ function MakeHand({
     setActiveHand(ahand);
     // if the current hand has less than our handsize, draw cards
     if (oldHand.length < 8) {
-      newHand = [...oldHand]
+      newHand = [...oldHand];
       const newHandInitLength = newHand.length;
       for (let x = 0; x < 8 - newHandInitLength; x++) {
         const card = Math.floor(Math.random() * deck.length);
@@ -456,14 +456,69 @@ function BestHand(ahand) {
   }
 }
 
-/*
-if (straight(ranks) && flush(suits)) {
-    // royal flush check - if the 2nd card is a king, its a royal flush
-    if (ranks[1] === 13) {
-      return "Royal Flush";
-    } else return "Straight Flush";
+// A [Maybe-Number] is one of:
+// - Number
+// - ""
+// Examples
+const maybeNum10 = 10;
+const maybeNum78 = 78;
+const maybeNumStr = "";
+// Template
+function maybeNumberTemp(maybeNum) {
+  if (!isNaN(maybeNum)) {
+    return maybeNum;
+  } else return maybeNum;
+}
+
+// ChipVal: String -> [Maybe-Number]
+// Returns the base chip value for the given String
+function ChipVal(hand) {
+  switch (hand) {
+    case "Straight Flush":
+      return 100;
+    case "Four of a Kind":
+      return 60;
+    case "Full House":
+      return 40;
+    case "Flush":
+      return 35;
+    case "Straight":
+    case "Three of a Kind":
+      return 30;
+    case "Two Pair":
+      return 20;
+    case "Pair":
+      return 10;
+    case "High Card":
+      return 5;
+    default:
+      return "";
   }
-*/
+}
+
+// MultVal: String -> [Maybe-Number]
+// Returns the base mult value for the given String
+function MultVal(hand) {
+  switch (hand) {
+    case "Straight Flush":
+      return 8;
+    case "Four of a Kind":
+      return 7;
+    case "Full House":
+    case "Flush":
+    case "Straight":
+      return 4;
+    case "Three of a Kind":
+      return 3;
+    case "Two Pair":
+    case "Pair":
+      return 2;
+    case "High Card":
+      return 1;
+    default:
+      return "";
+  }
+}
 
 interface HandInfoProps {
   ahand: object[];
@@ -473,9 +528,13 @@ interface HandInfoProps {
 // Returns the info of the active hand based on given [List-of Card]
 function HandInfo({ ahand }: HandInfoProps) {
   const handType = BestHand(ahand);
+  const chips = ChipVal(handType);
+  const mult = MultVal(handType);
   return (
     <div className="container">
       <h1 id="handName">{handType}</h1>
+      <h1 id="chipCount">{chips}</h1>
+      <h1 id="multCount">{mult}</h1>
       <img
         className="ui"
         id="handinfo"

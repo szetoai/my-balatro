@@ -39,7 +39,7 @@ h1 {
 #handinfo {
   width: 250px;
   margin-top: 25px;
-  margin-bottom: -130px;
+  margin-bottom: -200px;
 }
 
 /* Hand Info Box - Name */
@@ -48,6 +48,20 @@ h1 {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -100%);
+}
+
+/* Hand Info Box - Chip Count */
+#chipCount {
+  position: absolute;
+  top: 70px;
+  left: 588px;
+}
+
+/* Hand Info Box - Mult Count */
+#multCount {
+  position: absolute;
+  top: 70px;
+  left: 718px;
 }
 
 /* Game Info Box */
@@ -64,7 +78,7 @@ h1 {
 /* Discard Button */
 #discard {
   width: 130px;
-  transform: translate(100px, 50px);
+  transform: translateX(100px);
 }
 
 /* The Hand of Cards */

@@ -12,7 +12,7 @@ function InfoPanel({discards}: InfoPanelProps) {
     <div className="container">
       <img
         id="infopanel"
-        src="https://i.ibb.co/c1Y0Wmb/hands-discards-money-ante-round.png"
+        src="https://i.ibb.co/dWbWJ2P/hands-discards-money-ante-round.png"
       />
       <h1 id="discardCount">{discards}</h1>
     </div>

@@ -12,7 +12,6 @@ function App() {
   const [ahandState, setAhandState] = useState(Array); // Active hand
   const [handNum, setHandNum] = useState(4); // Number of hands
   const [discardNum, setDiscardNum] = useState(4); // Number of discards
-  console.log(discardNum);
   if (startState) {
     return (
       <>
