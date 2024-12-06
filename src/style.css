@@ -39,6 +39,49 @@ h1 {
   left: 395px;
 }
 
+/* Round Goal Box */
+#roundGoal {
+  width: 200px;
+  margin-bottom: -40px;
+}
+
+/* Round Goal Box - Number */
+#roundGoalChips {
+  transform: translate(45px, -40px);
+  color: #f64e44;
+}
+
+/* Round Info Box */
+#infoPanel {
+  width: 180px;
+  margin-bottom: -120px;
+}
+
+/* Hand Count */
+#handCount {
+  transform: translate(37px, -85px);
+  color: #0985dc;
+}
+
+/* Discard Count */
+#discardCount {
+  transform: translate(127px, -142px);
+  color: #e25045;
+}
+
+/* Ante Number */
+#ante {
+  transform: translate(27px, -38px);
+  font-size: 185%;
+  color: #fb8e02;
+}
+
+/* Round Number */
+#round {
+  transform: translate(130px, -88px);
+  color: #fb8e02;
+}
+
 /* Round Score - Box */
 #roundScore {
   width: 350px;
@@ -79,36 +122,6 @@ h1 {
   position: absolute;
   top: 70px;
   left: 687px;
-}
-
-/* Game Info Box */
-#infoPanel {
-  width: 180px;
-}
-
-/* Hand Count */
-#handCount {
-  transform: translate(40px, -206px);
-  color: #0985dc;
-}
-
-/* Discard Count */
-#discardCount {
-  transform: translate(127px, -262px);
-  color: #e25045;
-}
-
-/* Ante Number */
-#ante {
-  transform: translate(27px, -158px);
-  font-size: 185%;
-  color: #fb8e02;
-}
-
-/* Round Number */
-#round {
-  transform: translate(130px, -210px);
-  color: #fb8e02;
 }
 
 /* Play Hand Button */

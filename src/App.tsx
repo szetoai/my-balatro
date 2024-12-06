@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./style.css";
 import { Start } from "./components/Start";
 import { MakeDeck, MakeHand, HandInfo } from "./components/Hand";
+import { RoundGoal } from "./components/RoundGoal";
 import { InfoPanel } from "./components/RoundInfo";
 import { Score } from "./components/RoundScore";
 import { PlayHandButton } from "./components/PlayHand";
@@ -43,6 +44,7 @@ function App() {
     return (
       <>
         <div className="container">
+          <RoundGoal goal={AnteBaseValues[ante] * (0.5 + 0.5 * (round % 3))} />
           <InfoPanel
             hands={handNum}
             discards={discardNum}
@@ -52,7 +54,6 @@ function App() {
           <Score num={roundScore} />
         </div>
         <HandInfo ahand={ahandState} />
-
         <PlayHandButton
           handCount={handNum}
           ahand={ahandState}

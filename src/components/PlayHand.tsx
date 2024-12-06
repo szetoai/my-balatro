@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { BestHand, ChipVal, MultVal } from "./Hand";
 
 // For Card Data Definition, see Hand.tsx
