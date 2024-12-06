@@ -400,7 +400,9 @@ function Flush(suits) {
 // Ace counts as 14 and 1.
 function Straight(ranks) {
   if (ranks[0] === 14 && ranks[1] === 5) {
-    return Straight(ranks.splice(0, 1));
+    ranks.splice(0, 1);
+    ranks.push(1);
+    return Straight(ranks);
   } else {
     return ranks
       .map((item, index) => index === 4 || ranks[index + 1] === item - 1)
@@ -435,7 +437,6 @@ function BestHand(ahand) {
   } else {
     const ranks = ahand.map((item) => item.rank);
     const suits = ahand.map((item) => item.suit);
-
     if (Straight(ranks) && Flush(ranks)) {
       return "Straight Flush";
     } else if (OfAKind(ranks, 4)) {
