@@ -92,10 +92,18 @@ h1 {
   color: #e25045;
 }
 
+/* Play Hand Button */
+#playHand {
+  width: 130px;
+  height: 75px;
+  transform: translate(-100px, 0px);
+  margin-bottom: -100px;
+}
+
 /* Discard Button */
 #discard {
   width: 130px;
-  transform: translateX(100px);
+  transform: translate(100px, 25px);
 }
 
 /* The Hand of Cards */

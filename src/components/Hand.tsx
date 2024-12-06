@@ -544,4 +544,4 @@ function HandInfo({ ahand }: HandInfoProps) {
   );
 }
 
-export { MakeDeck, MakeHand, HandInfo };
+export { MakeDeck, MakeHand, HandInfo, BestHand, ChipVal, MultVal };

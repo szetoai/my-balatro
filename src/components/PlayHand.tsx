@@ -1,0 +1,44 @@
+import { useState } from "react";
+import { BestHand, ChipVal, MultVal } from "./Hand";
+
+// For Card Data Definition, see Hand.tsx
+// HandScore: [List-of Card] -> img
+// Calculates the value of the given hand based on each Card's rank
+function HandScore(ahand) {
+  if (ahand.length === 0) {
+    return 0;
+  } else {
+    return ahand.reduceRight((total, card) => {
+      return total + card.rank;
+    }, 0);
+  }
+}
+
+interface PlayHandButtonProps {
+  ahand: object[];
+  updateScore: (item: number) => void;
+  updateHand: (item: void) => void;
+}
+
+// PlayHandButton: [List-of Card] -> img
+// Renders the play hand button, which calculates the new player score
+// based on the given [List-of Card] when clicked.
+function PlayHandButton({ ahand, updateScore, updateHand }: PlayHandButtonProps) {
+  const handType = BestHand(ahand);
+  const chips = ChipVal(handType) + HandScore(ahand);
+  const mult = MultVal(handType);
+  const score = chips * mult;
+  return (
+    <img
+      className="ui"
+      id="playHand"
+      src="https://i.ibb.co/cgwMhHw/playhandbutton.png"
+      onClick={() => {
+        updateScore(score);
+        updateHand();
+      }}
+    />
+  );
+}
+
+export { PlayHandButton };

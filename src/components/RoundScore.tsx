@@ -7,9 +7,10 @@ interface ScoreProps {
 // Score: Number -> img
 // Returns the round score img for the given Number
 function Score({ num }: ScoreProps) {
+  const score = !isNaN(num) ? num : 0;
   return (
     <div className="container">
-      <h1 id="roundScoreNumber">{num}</h1>
+      <h1 id="roundScoreNumber">{score}</h1>
       <img
         id="roundScore"
         className="ui"
