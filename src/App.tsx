@@ -19,6 +19,7 @@ function App() {
         <HandInfo ahand={ahandState} />
         <InfoPanel discards={discardNum} />
         <Discard
+          discards={discardNum}
           onPress={
             // updateHandDiscard: () -> void
             // Updates the hand so that it contains only the cards that arent in the active hand

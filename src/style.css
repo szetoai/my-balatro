@@ -9,11 +9,14 @@ body {
   font-family: "balatro", 'Times New Roman', Times, serif;
 }
 
+h1 {
+  color: white;
+}
+
 /* Container holding the image and the text */
 .container {
   position: relative;
-  text-align: center;
-  color: white;
+  text-align: justify;
 }
 
 /* UI Elements */
@@ -50,7 +53,12 @@ body {
 /* Game Info Box */
 #infopanel {
   width: 180px;
-  transform: translateX(200%);
+}
+
+/* Discard Count */
+#discardCount {
+  transform: translate(127px, -205px);
+  color: #e25045;
 }
 
 /* Discard Button */
