@@ -46,11 +46,15 @@ function App() {
     setHandState([]);
     setAhandState([]);
   };
+  const curGoal = AnteBaseValues[ante] * (1 + 0.5 * ((round - 1) % 3));
+  let interest = Math.floor(money / 5);
+  if (interest > 5) {
+    interest = 5;
+  }
+  const curReward = 3 + ((round - 1) % 3) + handNum + interest;
   switch (gameState) {
     case "Round":
       // Goal and Round winning logic
-      const curGoal = AnteBaseValues[ante] * (1 + 0.5 * ((round - 1) % 3));
-      const curReward = 3 + ((round - 1) % 3) + handNum;
       // If we beat the level
       if (roundScore >= curGoal) {
         const newRound = round + 1;
@@ -123,6 +127,8 @@ function App() {
               - If you run out of hands, you lose!
               <br />
               - Each leftover hand = +$1 reward (Extra discards do nothing)
+              <br />
+              - Each $5 = +$1 reward (Max. $5)
               <br />
               - Spend $ on Jokers to boost your performance
               <br />- Each Ante is 3 Rounds, beat 8 Antes to win!

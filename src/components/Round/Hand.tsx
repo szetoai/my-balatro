@@ -141,7 +141,7 @@ const C = "clubs";
 const D = "diamonds";
 const S = "spades";
 // Template
-function SuitTemp(suit) {
+function SuitTemp(suit: string) {
   switch (suit) {
     case "hearts":
       break;
@@ -179,7 +179,7 @@ const Q = 12;
 const J = 11;
 const TEN = 10;
 // Template
-function RankTemp(rank) {
+function RankTemp(rank: number) {
   switch (rank) {
     case 14:
       break;
@@ -210,10 +210,10 @@ function RankTemp(rank) {
   }
 }
 
-// A Card is a new Card (Rank, Suit, Image)
+// A Card is a new Card (Rank, Suit, String)
 // a represents a card in a deck of cards
 class Card {
-  constructor(rank, suit, img) {
+  constructor(rank: number, suit: string, img: string) {
     this.rank = rank;
     this.suit = suit;
     this.img = img;
@@ -226,7 +226,7 @@ const NINECLUBS = new Card(9, C, NINECLUBS_IMG);
 const TWOCLUBS = new Card(2, C, TWOCLUBS_IMG);
 const QUEENDIAMONDS = new Card(Q, D, QUEENDIAMONDS_IMG);
 // Template
-function CardTemp(card) {
+function CardTemp(card: Card) {
   SuitTemp(card.suit);
   RankTemp(card.rank);
   // Just pretend there's a CardImageTemp pls
@@ -235,7 +235,7 @@ function CardTemp(card) {
 
 // GetCardImage: Rank Suit -> CardImage
 // Returns the appropriate CardImage for the given Rank and Suit.
-function GetCardImage(r, s) {
+function GetCardImage(r: number, s: string) {
   let s_ind = 13;
   switch (s) {
     case "hearts":
@@ -354,7 +354,7 @@ const FourKind = 4;
 const ThreeKind = 3;
 const TwoKind = 2;
 // Template
-function KindTemp(kind) {
+function KindTemp(kind: number) {
   switch (kind) {
     case 4:
       break;
@@ -367,7 +367,7 @@ function KindTemp(kind) {
 
 // OfAKind: [List-of Rank] Kind -> Boolean
 // Determines if a given [List-of Rank] contains the given Kind number of cards of the same rank.
-function OfAKind(ranks, kind) {
+function OfAKind(ranks:number[], kind:number) {
   return (
     ranks
       // map over each item, determine if there exists another of the same rank in the ranks
@@ -383,7 +383,7 @@ function OfAKind(ranks, kind) {
 // FullHouse: [List-of Rank] -> Boolean
 // Determines if the given [List-of Rank] is a Full House,
 // meaning that it contains a 3 of a kind and a Pair (exclusive to each other)
-function FullHouse(ranks) {
+function FullHouse(ranks:number[]) {
   if (OfAKind(ranks, 3)) {
     // filters the ranks such that only the ranks that arent a part of the 3 of a kind are left.
     const nonThreeKind = ranks.filter(
@@ -397,7 +397,7 @@ function FullHouse(ranks) {
 // Flush: [List-of Suit] -> Boolean
 // Determines if the given [List-of Suit] is a flush,
 // meaning that it contains 5 cards of the same suit.
-function Flush(suits) {
+function Flush(suits:string[]) {
   return suits.length === 5 && suits.every((x) => x === suits[0]);
 }
 
@@ -405,7 +405,7 @@ function Flush(suits) {
 // Determines if a given [List-of Rank] is a Straight,
 // meaning the elements are all consecutive. Assumes the list is sorted.
 // Ace counts as 14 and 1.
-function Straight(ranks) {
+function Straight(ranks:number[]) {
   if (ranks[0] === 14 && ranks[1] === 5) {
     ranks.splice(0, 1);
     ranks.push(1);
@@ -420,7 +420,7 @@ function Straight(ranks) {
 // TwoPair: [List-of Rank] -> Boolean
 // Determines if a given [List-of Rank] is a Two Pair,
 // meaning the list contains 2 Pairs.
-function TwoPair(ranks) {
+function TwoPair(ranks:number[]) {
   return (
     ranks
       // map over each item, determine if there exists another of the same rank in the ranks
@@ -438,7 +438,7 @@ function TwoPair(ranks) {
 
 // BestHand: [List-of Card] -> String
 // Returns the best hand that a given [List-of Card] contains
-function BestHand(ahand) {
+function BestHand(ahand:Card[]) {
   if (ahand.length === 0) {
     return "";
   } else {
@@ -480,7 +480,7 @@ function maybeNumberTemp(maybeNum) {
 
 // ChipVal: String -> [Maybe-Number]
 // Returns the base chip value for the given String
-function ChipVal(hand) {
+function ChipVal(hand:string) {
   switch (hand) {
     case "Straight Flush":
       return 100;
