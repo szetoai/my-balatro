@@ -44,7 +44,7 @@ function App() {
   if (startState) {
     // Goal and Round winning logic
     const curGoal = AnteBaseValues[ante] * (1 + 0.5 * ((round - 1) % 3));
-    const curReward = 3 + ((round - 1) % 3);
+    const curReward = 3 + ((round - 1) % 3) + handNum;
     if (roundScore >= curGoal) {
       const newRound = round + 1;
       setMoney(money + curReward);
@@ -57,7 +57,7 @@ function App() {
     return (
       <>
         <div className="container">
-          <RoundGoal goal={curGoal} reward={curReward} />
+          <RoundGoal goal={curGoal} reward={curReward - 1} />
           <InfoPanel
             hands={handNum}
             discards={discardNum}
@@ -95,7 +95,22 @@ function App() {
       </>
     );
   } else {
-    return <Start isActive={startState} onPress={() => setStartState(true)} />;
+    return (
+      <>
+        <h1 id="rules">
+          <span className="rulesbg">
+            Rules:<br />
+              - Reach the target chip value using Poker Hands (better hand = more chips)<br />
+              - If you run out of hands, you lose!<br />
+              - Each leftover hand = +$1 reward (Extra discards do nothing)<br />
+              - Spend $ on Jokers to boost your performance<br />
+              - Each Ante is 3 Rounds, beat 8 Antes to win!
+
+          </span>
+        </h1>
+        <Start isActive={startState} onPress={() => setStartState(true)} />;
+      </>
+    );
   }
 }
 

@@ -10,7 +10,7 @@ function RoundGoal({ goal, reward }: GoalProps) {
     <div className="container">
       <img id="roundGoal" src="https://i.ibb.co/k1CRrLj/goalscore.png" />
       <h1 id="roundGoalChips">{goal}</h1>
-      <h1 id="reward">{"$".repeat(reward)}</h1>
+      <h1 id="reward">{"$" + reward}</h1>
     </div>
   );
 }
