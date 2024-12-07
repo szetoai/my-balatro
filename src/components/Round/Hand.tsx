@@ -210,14 +210,21 @@ function RankTemp(rank) {
   }
 }
 
-// A Card is a {rank: Rank, suit: Suit, img: Image}
+// A Card is a new Card (Rank, Suit, Image)
 // a represents a card in a deck of cards
+class Card {
+  constructor(rank, suit, img) {
+    this.rank = rank;
+    this.suit = suit;
+    this.img = img;
+  }
+}
 // Examples
-const ACEHEARTS = { rank: A, suit: H, img: ACEHEARTS_IMG };
-const ACESPADES = { rank: A, suit: S, img: ACESPADES_IMG };
-const NINECLUBS = { rank: 9, suit: C, img: NINECLUBS_IMG };
-const TWOCLUBS = { rank: 2, suit: C, img: TWOCLUBS_IMG };
-const QUEENDIAMONDS = { rank: Q, suit: D, img: QUEENDIAMONDS_IMG };
+const ACEHEARTS = new Card(A, H, ACEHEARTS_IMG);
+const ACESPADES = new Card(A, S, ACESPADES_IMG);
+const NINECLUBS = new Card(9, C, NINECLUBS_IMG);
+const TWOCLUBS = new Card(2, C, TWOCLUBS_IMG);
+const QUEENDIAMONDS = new Card(Q, D, QUEENDIAMONDS_IMG);
 // Template
 function CardTemp(card) {
   SuitTemp(card.suit);
@@ -254,7 +261,7 @@ function MakeDeck() {
   const deck = [];
   for (const s in suits) {
     for (let r = 2; r < 15; r++) {
-      deck.push({ rank: r, suit: suits[s], img: GetCardImage(r, suits[s]) });
+      deck.push(new Card(r, suits[s], GetCardImage(r, suits[s])));
     }
   }
   return deck;
