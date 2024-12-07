@@ -1,12 +1,16 @@
 import { useState } from "react";
 import "./style.css";
+// GameOver Components
 import { Start } from "./components/GameOver/Start";
+// Round Components
 import { MakeDeck, MakeHand, HandInfo } from "./components/Round/Hand";
 import { RoundGoal } from "./components/Round/Goal";
 import { InfoPanel } from "./components/Round/RoundInfo";
 import { Score } from "./components/Round/Score";
 import { PlayHandButton } from "./components/Round/PlayHand";
 import { Discard } from "./components/Round/Discard";
+// Shop Components
+import { NextRound } from "./components/Shop/NextRound";
 
 const AnteBaseValues = [100, 300, 800, 2000, 5000, 11000, 20000, 35000, 50000];
 
@@ -56,6 +60,7 @@ function App() {
           setAnte(ante + 1);
         }
         reset();
+        setgameState("Shop");
       } else if (handNum <= 0) {
         setgameState("Game Over");
         reset();
@@ -104,7 +109,7 @@ function App() {
         </>
       );
     case "Shop":
-      return;
+      return <NextRound onPress={() => setgameState("Round")} />;
     case "Game Over":
       return (
         <>
