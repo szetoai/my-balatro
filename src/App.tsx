@@ -35,16 +35,17 @@ function App() {
   // back to initial values
   const reset = () => {
     setDeckState(MakeDeck());
-    setHandState([]);
-    setAhandState([]);
     setHandNum(4);
     setDiscardNum(4);
     setRoundScore(0);
+    setHandState([]);
+    setAhandState([]);
   };
   if (startState) {
     // Goal and Round winning logic
     const curGoal = AnteBaseValues[ante] * (1 + 0.5 * ((round - 1) % 3));
     const curReward = 3 + ((round - 1) % 3) + handNum;
+    // If we beat the level
     if (roundScore >= curGoal) {
       const newRound = round + 1;
       setMoney(money + curReward);
@@ -53,6 +54,12 @@ function App() {
         setAnte(ante + 1);
       }
       reset();
+    } else if (handNum <= 0) {
+      setStartState(false);
+      reset();
+      setAnte(1);
+      setRound(1);
+      setMoney(0);
     }
     return (
       <>
@@ -99,13 +106,17 @@ function App() {
       <>
         <h1 id="rules">
           <span className="rulesbg">
-            Rules:<br />
-              - Reach the target chip value using Poker Hands (better hand = more chips)<br />
-              - If you run out of hands, you lose!<br />
-              - Each leftover hand = +$1 reward (Extra discards do nothing)<br />
-              - Spend $ on Jokers to boost your performance<br />
-              - Each Ante is 3 Rounds, beat 8 Antes to win!
-
+            Rules:
+            <br />
+            - Reach the target chip value using Poker Hands (better hand = more
+            chips)
+            <br />
+            - If you run out of hands, you lose!
+            <br />
+            - Each leftover hand = +$1 reward (Extra discards do nothing)
+            <br />
+            - Spend $ on Jokers to boost your performance
+            <br />- Each Ante is 3 Rounds, beat 8 Antes to win!
           </span>
         </h1>
         <Start isActive={startState} onPress={() => setStartState(true)} />;
