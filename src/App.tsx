@@ -1,17 +1,18 @@
 import { useState } from "react";
 import "./style.css";
-import { Start } from "./components/Start";
-import { MakeDeck, MakeHand, HandInfo } from "./components/Hand";
-import { RoundGoal } from "./components/RoundGoal";
-import { InfoPanel } from "./components/RoundInfo";
-import { Score } from "./components/RoundScore";
-import { PlayHandButton } from "./components/PlayHand";
-import { Discard } from "./components/Discard";
+import { Start } from "./components/GameOver/Start";
+import { MakeDeck, MakeHand, HandInfo } from "./components/Round/Hand";
+import { RoundGoal } from "./components/Round/Goal";
+import { InfoPanel } from "./components/Round/RoundInfo";
+import { Score } from "./components/Round/Score";
+import { PlayHandButton } from "./components/Round/PlayHand";
+import { Discard } from "./components/Round/Discard";
 
 const AnteBaseValues = [100, 300, 800, 2000, 5000, 11000, 20000, 35000, 50000];
 
 function App() {
-  const [startState, setStartState] = useState(false); // Whether the game has started or not
+  // A gameState is one of: "Game Over" "Round" "Shop" and represents one of 3 game states
+  const [gameState, setgameState] = useState("Game Over");
   const [handNum, setHandNum] = useState(4); // Number of hands
   const [discardNum, setDiscardNum] = useState(4); // Number of discards
   const [ante, setAnte] = useState(1); // Ante Number
@@ -41,87 +42,90 @@ function App() {
     setHandState([]);
     setAhandState([]);
   };
-  if (startState) {
-    // Goal and Round winning logic
-    const curGoal = AnteBaseValues[ante] * (1 + 0.5 * ((round - 1) % 3));
-    const curReward = 3 + ((round - 1) % 3) + handNum;
-    // If we beat the level
-    if (roundScore >= curGoal) {
-      const newRound = round + 1;
-      setMoney(money + curReward);
-      setRound(newRound);
-      if (newRound % 3 == 1) {
-        setAnte(ante + 1);
+  switch (gameState) {
+    case "Round":
+      // Goal and Round winning logic
+      const curGoal = AnteBaseValues[ante] * (1 + 0.5 * ((round - 1) % 3));
+      const curReward = 3 + ((round - 1) % 3) + handNum;
+      // If we beat the level
+      if (roundScore >= curGoal) {
+        const newRound = round + 1;
+        setMoney(money + curReward);
+        setRound(newRound);
+        if (newRound % 3 == 1) {
+          setAnte(ante + 1);
+        }
+        reset();
+      } else if (handNum <= 0) {
+        setgameState("Game Over");
+        reset();
+        setAnte(1);
+        setRound(1);
+        setMoney(0);
       }
-      reset();
-    } else if (handNum <= 0) {
-      setStartState(false);
-      reset();
-      setAnte(1);
-      setRound(1);
-      setMoney(0);
-    }
-    return (
-      <>
-        <div className="container">
-          <RoundGoal goal={curGoal} reward={curReward - 1} />
-          <InfoPanel
-            hands={handNum}
-            discards={discardNum}
-            money={money}
-            ante={ante}
-            round={round}
+      return (
+        <>
+          <div className="container">
+            <RoundGoal goal={curGoal} reward={curReward - 1} />
+            <InfoPanel
+              hands={handNum}
+              discards={discardNum}
+              money={money}
+              ante={ante}
+              round={round}
+            />
+            <Score num={roundScore} />
+          </div>
+          <HandInfo ahand={ahandState} />
+          <PlayHandButton
+            handCount={handNum}
+            ahand={ahandState}
+            updateScore={(x) => setRoundScore(x + roundScore)}
+            updateHand={updateHand}
+            updateHandCount={() => setHandNum(handNum - 1)}
           />
-          <Score num={roundScore} />
-        </div>
-        <HandInfo ahand={ahandState} />
-        <PlayHandButton
-          handCount={handNum}
-          ahand={ahandState}
-          updateScore={(x) => setRoundScore(x + roundScore)}
-          updateHand={updateHand}
-          updateHandCount={() => setHandNum(handNum - 1)}
-        />
-        <Discard
-          discards={discardNum}
-          onPress={() => {
-            if (ahandState.length > 0) {
-              updateHand();
-              setDiscardNum(discardNum - 1);
-            }
-          }}
-        />
-        <MakeHand
-          oldHand={handState}
-          ahand={ahandState}
-          deck={deckState}
-          updateHand={(x) => setHandState(x)}
-          updateAhand={(y) => setAhandState(y)}
-          updateDeck={(z) => setDeckState(z)}
-        />
-      </>
-    );
-  } else {
-    return (
-      <>
-        <h1 id="rules">
-          <span className="rulesbg">
-            Rules:
-            <br />
-            - Reach the target chip value using Poker Hands (better hand = more
-            chips)
-            <br />
-            - If you run out of hands, you lose!
-            <br />
-            - Each leftover hand = +$1 reward (Extra discards do nothing)
-            <br />
-            - Spend $ on Jokers to boost your performance
-            <br />- Each Ante is 3 Rounds, beat 8 Antes to win!
-          </span>
-        </h1>
-        <Start isActive={startState} onPress={() => setStartState(true)} />;
-      </>
-    );
+          <Discard
+            discards={discardNum}
+            onPress={() => {
+              if (ahandState.length > 0) {
+                updateHand();
+                setDiscardNum(discardNum - 1);
+              }
+            }}
+          />
+          <MakeHand
+            oldHand={handState}
+            ahand={ahandState}
+            deck={deckState}
+            updateHand={(x) => setHandState(x)}
+            updateAhand={(y) => setAhandState(y)}
+            updateDeck={(z) => setDeckState(z)}
+          />
+        </>
+      );
+    case "Shop":
+      return;
+    case "Game Over":
+      return (
+        <>
+          <h1 id="rules">
+            <span className="rulesbg">
+              Rules:
+              <br />
+              - Reach the target chip value using Poker Hands (better hand =
+              more chips)
+              <br />
+              - If you run out of hands, you lose!
+              <br />
+              - Each leftover hand = +$1 reward (Extra discards do nothing)
+              <br />
+              - Spend $ on Jokers to boost your performance
+              <br />- Each Ante is 3 Rounds, beat 8 Antes to win!
+            </span>
+          </h1>
+          <Start onPress={() => setgameState("Round")} />;
+        </>
+      );
   }
 }
 
