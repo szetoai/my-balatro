@@ -6,7 +6,6 @@ interface JokersProps {
 // Renders all owned Jokers onto the screen
 function Jokers({ owned }: JokersProps) {
   const JokerNum = owned.length;
-  console.log(owned);
   return (
     <>
       <img id="jokers" src="https://i.ibb.co/6rg98wD/jokers.png" />

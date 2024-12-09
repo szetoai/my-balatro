@@ -444,8 +444,10 @@ function BestHand(ahand:Card[]) {
   } else {
     const ranks = ahand.map((item) => item.rank);
     const suits = ahand.map((item) => item.suit);
-    if (Straight(ranks) && Flush(ranks)) {
-      return "Straight Flush";
+    if (Straight(ranks) && Flush(suits)) {
+      if (ranks[1] === 13) {
+        return "Royal Flush";
+      } else return "Straight Flush";
     } else if (OfAKind(ranks, 4)) {
       return "Four of a Kind";
     } else if (FullHouse(ranks)) {
@@ -482,6 +484,7 @@ function maybeNumberTemp(maybeNum) {
 // Returns the base chip value for the given String
 function ChipVal(hand:string) {
   switch (hand) {
+    case "Royal Flush":
     case "Straight Flush":
       return 100;
     case "Four of a Kind":
@@ -508,6 +511,7 @@ function ChipVal(hand:string) {
 // Returns the base mult value for the given String
 function MultVal(hand) {
   switch (hand) {
+    case "Royal Flush":
     case "Straight Flush":
       return 8;
     case "Four of a Kind":
