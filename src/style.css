@@ -228,7 +228,13 @@ h1 {
   text-align: center;
 }
 
+/* Win Message Details */
 a {
   color: white;
   background-color: rgb(53, 69, 245);
+}
+
+/* mouse over Win Message Link */
+a:hover {
+  color: white;
 }
