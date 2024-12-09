@@ -68,7 +68,7 @@ function App() {
         if (newRound % 3 == 1) {
           setAnte(ante + 1);
         }
-        if (newRound >= 25) {
+        if (newRound >= 2) {
           setgameState("Win");
         } else {
           reset();
@@ -164,7 +164,13 @@ function App() {
         </>
       );
     case "Win":
-      return <img src="https://i.ibb.co/kBFJfXr/winscreen.jpg" />
+      return (
+        <h1 id="youWin">
+          You Win! Thanks for playing MyBalatro!
+          <br />
+          <a href="https://www.playbalatro.com/">Click here to go play the real Balatro (I promise it's much better ;p)</a>
+        </h1>
+      );
   }
 }
 

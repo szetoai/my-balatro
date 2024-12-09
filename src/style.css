@@ -222,3 +222,13 @@ h1 {
   gap: 20px;
   flex-wrap: wrap;
 }
+
+/* ---------------- Win ----------------------- */
+#youWin {
+  text-align: center;
+}
+
+a {
+  color: white;
+  background-color: rgb(53, 69, 245);
+}
