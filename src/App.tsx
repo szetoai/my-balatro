@@ -122,7 +122,7 @@ function App() {
       return (
         <div className="ui">
           <ShopTitle money={money} />
-          <JokerOptions updateJokers={(x) => setOwnedJokers([...ownedJokers, x])} />
+          <JokerOptions updateJokers={(x) => setOwnedJokers([...ownedJokers, x])} money={money} updateMoney={setMoney}/>
           <NextRound onPress={() => setgameState("Round")} />
         </div>
       );
