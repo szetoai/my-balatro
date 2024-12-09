@@ -11,6 +11,7 @@ import { PlayHandButton } from "./components/Round/PlayHand";
 import { Discard } from "./components/Round/Discard";
 // Shop Components
 import { NextRound } from "./components/Shop/NextRound";
+import { JokerOptions } from "./components/Shop/JokerOptions";
 
 const AnteBaseValues = [100, 300, 800, 2000, 5000, 11000, 20000, 35000, 50000];
 
@@ -113,7 +114,12 @@ function App() {
         </>
       );
     case "Shop":
-      return <NextRound onPress={() => setgameState("Round")} />;
+      return (
+        <div className="ui">
+          <NextRound onPress={() => setgameState("Round")} />
+          <JokerOptions />
+        </div>
+      );
     case "Game Over":
       return (
         <>
