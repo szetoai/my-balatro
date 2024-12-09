@@ -1,13 +1,23 @@
 import { BestHand, ChipVal, MultVal } from "./Hand";
 
 // For Card Data Definition, see Hand.tsx
-// HandScore: [List-of Card] -> img
+// HandScore: [List-of Card] String -> img
 // Calculates the value of the given hand based on each Card's rank
-function HandScore(ahand) {
+function HandScore(ahand, handType: string) {
   if (ahand.length === 0) {
     return 0;
   } else {
-    return ahand.reduceRight((total, card) => {
+    // we only want the cards that contribute to the handType
+    let countedCards;
+    if (handType !== "High Card") {
+      countedCards = ahand.filter(
+        (item, index) => BestHand(ahand.toSpliced(index, 1)) !== handType
+      );
+    } else {
+      countedCards = [ahand[0]];
+    }
+    console.log(countedCards);
+    return countedCards.reduceRight((total, card) => {
       const rank = card.rank;
       let cardscore;
       if (rank === 14) {
@@ -39,7 +49,7 @@ function PlayHandButton({
   updateHandCount,
 }: PlayHandButtonProps) {
   const handType = BestHand(ahand);
-  const chips = ChipVal(handType) + HandScore(ahand);
+  const chips = ChipVal(handType) + HandScore(ahand, handType);
   const mult = MultVal(handType);
   const score = chips * mult;
   return (
