@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { ShopTitle } from "./ShopTitle";
 
-// A Joker is a new Joker((Any) => Any, String, String)
+// See Hand.tsx for Card and Maybe-Number definitions
+// A Joker is a new Joker([List-of Card] [List-of [Maybe-Number]] -> number[], Number, String, String)
 // And represents a constantly present card that changes the way a round is played
 // (very vague data definition because Jokers can do *many* things)
 class Joker {
   constructor(
-    effect: (effect: any) => any,
+    effect: (ahand: object[], chipsAndMult: number[]) => number[],
     val: number,
     desc: string,
     img: string
@@ -19,31 +20,44 @@ class Joker {
 }
 // Examples
 const JOKER = new Joker(
-  (mult: number) => mult + 4,
+  (ahand, chipsAndMult) => [chipsAndMult[0], chipsAndMult[1] + 4],
   2,
   "Joker: +4 Mult",
   "https://static.wikia.nocookie.net/balatrogame/images/e/ef/Joker.png"
 );
 const GREEDYJOKER = new Joker(
-  (mult: number) => mult + 4,
+  (ahand, chipsAndMult) => {
+    const diamonds = ahand.filter((card) => card.suit === "diamonds");
+    return [chipsAndMult[0], chipsAndMult[1] + diamonds.length * 3];
+  },
   5,
   "Greedy Joker: Played cards with Diamond suit give +3 Mult when scored",
   "https://static.wikia.nocookie.net/balatrogame/images/4/43/Greedy_Joker.png"
 );
 const LUSTYJOKER = new Joker(
-  (mult: number) => mult + 4,
+  (ahand, chipsAndMult) => {
+    const hearts = ahand.filter((card) => card.suit === "hearts");
+    console.log(hearts.length);
+    return [chipsAndMult[0], chipsAndMult[1] + hearts.length * 3];
+  },
   5,
   "Lusty Joker: Played cards with Heart suit give +3 Mult when scored",
   "https://static.wikia.nocookie.net/balatrogame/images/f/fd/Lusty_Joker.png"
 );
 const WRATHFULJOKER = new Joker(
-  (mult: number) => mult + 4,
+  (ahand, chipsAndMult) => {
+    const spades = ahand.filter((card) => card.suit === "spades");
+    return [chipsAndMult[0], chipsAndMult[1] + spades.length * 3];
+  },
   5,
   "Wrathful Joker: Played cards with Spade suit give +3 Mult when scored",
   "https://static.wikia.nocookie.net/balatrogame/images/7/7b/Wrathful_Joker.png"
 );
 const GLUTTONOUSJOKER = new Joker(
-  (mult: number) => mult + 4,
+  (ahand, chipsAndMult) => {
+    const clubs = ahand.filter((card) => card.suit === "clubs");
+    return [chipsAndMult[0], chipsAndMult[1] + clubs.length * 3];
+  },
   5,
   "Gluttonous Joker: Played cards with Club suit give +3 Mult when scored",
   "https://static.wikia.nocookie.net/balatrogame/images/a/ac/Gluttonous_Joker.png"
@@ -70,11 +84,7 @@ interface JokerOptionsProps {
   updateMoney: (item: number) => void;
 }
 
-function JokerOptions({
-  updateJokers,
-  money,
-  updateMoney,
-}: JokerOptionsProps) {
+function JokerOptions({ updateJokers, money, updateMoney }: JokerOptionsProps) {
   // The jokers
   const [joker1, setJoker1] = useState(null);
   const [joker2, setJoker2] = useState(null);

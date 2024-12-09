@@ -93,6 +93,7 @@ function App() {
           </div>
           <HandInfo ahand={ahandState} />
           <PlayHandButton
+            jokers={ownedJokers}
             handCount={handNum}
             ahand={ahandState}
             updateScore={(x) => setRoundScore(x + roundScore)}
