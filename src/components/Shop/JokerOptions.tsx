@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { ShopTitle } from "./ShopTitle";
 
 // A Joker is a new Joker((Any) => Any, String, String)
 // And represents a constantly present card that changes the way a round is played
@@ -20,31 +21,31 @@ class Joker {
 const JOKER = new Joker(
   (mult: number) => mult + 4,
   2,
-  "+4 Mult",
+  "Joker: +4 Mult",
   "https://static.wikia.nocookie.net/balatrogame/images/e/ef/Joker.png"
 );
 const GREEDYJOKER = new Joker(
   (mult: number) => mult + 4,
   5,
-  "Played cards with Diamond suit give +3 Mult when scored",
+  "Greedy Joker: Played cards with Diamond suit give +3 Mult when scored",
   "https://static.wikia.nocookie.net/balatrogame/images/4/43/Greedy_Joker.png"
 );
 const LUSTYJOKER = new Joker(
   (mult: number) => mult + 4,
   5,
-  "Played cards with Heart suit give +3 Mult when scored",
+  "Lusty Joker: Played cards with Heart suit give +3 Mult when scored",
   "https://static.wikia.nocookie.net/balatrogame/images/f/fd/Lusty_Joker.png"
 );
 const WRATHFULJOKER = new Joker(
   (mult: number) => mult + 4,
   5,
-  "Played cards with Spade suit give +3 Mult when scored",
+  "Wrathful Joker: Played cards with Spade suit give +3 Mult when scored",
   "https://static.wikia.nocookie.net/balatrogame/images/7/7b/Wrathful_Joker.png"
 );
 const GLUTTONOUSJOKER = new Joker(
   (mult: number) => mult + 4,
   5,
-  "Played cards with Club suit give +3 Mult when scored",
+  "Gluttonous Joker: Played cards with Club suit give +3 Mult when scored",
   "https://static.wikia.nocookie.net/balatrogame/images/a/ac/Gluttonous_Joker.png"
 );
 // Template
@@ -70,23 +71,26 @@ interface JokerOptionsProps {
 }
 
 function JokerOptions({ updateJokers, money, updateMoney }: JokerOptionsProps) {
+  // The jokers
   const [joker1, setJoker1] = useState(null);
   const [joker2, setJoker2] = useState(null);
   const [joker1Img, setJoker1Img] = useState(null);
   const [joker2Img, setJoker2Img] = useState(null);
   const [showJoker1, setShowJoker1] = useState(true);
   const [showJoker2, setShowJoker2] = useState(true);
+  const [shopText, setShopText] = useState("");
+  const [jokerCost, setJokerCost] = useState(null);
 
   useEffect(() => {
     // Make a shallow copy of ALLJOKERS to avoid modifying the original array
     const jokersCopy = [...ALLJOKERS];
 
     // Randomly select two unique jokers
-    const joker1ind = Math.floor(Math.random() * jokersCopy.length);
+    const joker1ind = Math.floor(Math.random() * (jokersCopy.length - 1));
     const selectedJoker1 = jokersCopy[joker1ind];
     jokersCopy.splice(joker1ind, 1); // Remove the selected joker
 
-    const joker2ind = Math.floor(Math.random() * jokersCopy.length);
+    const joker2ind = Math.floor(Math.random() * (jokersCopy.length - 1));
     const selectedJoker2 = jokersCopy[joker2ind];
 
     // Update state for the jokers
@@ -100,20 +104,20 @@ function JokerOptions({ updateJokers, money, updateMoney }: JokerOptionsProps) {
 
   return (
     <>
+      <ShopTitle money={money} text={shopText} cost={jokerCost} />
       {showJoker1 && ( // Conditionally render the first image
         <img
           className="shopJoker"
           src={joker1Img}
-          onMouseOver={() => setJoker1Img(joker2Img)}
-          onMouseOut={() =>
-            setJoker1Img(
-              "https://static.wikia.nocookie.net/balatrogame/images/2/2e/Joker_Stencil.png"
-            )
-          }
+          onMouseOver={() => {
+            setShopText(joker1.desc);
+            setJokerCost(joker1.val);
+          }}
+          onMouseOut={() => setShopText("")}
           onClick={() => {
             if (money >= joker1.val) {
               updateJokers(joker1); // add joker
-              setShowJoker2(false); // hide image
+              setShowJoker1(false); // hide image
               updateMoney(money - joker1.val); // subtract money
             }
           }}
@@ -123,12 +127,11 @@ function JokerOptions({ updateJokers, money, updateMoney }: JokerOptionsProps) {
         <img
           className="shopJoker"
           src={joker2Img}
-          onMouseOver={() => setJoker2Img(joker1Img)}
-          onMouseOut={() =>
-            setJoker1Img(
-              "https://static.wikia.nocookie.net/balatrogame/images/2/2e/Joker_Stencil.png"
-            )
-          }
+          onMouseOver={() => {
+            setShopText(joker2.desc);
+            setJokerCost(joker2.val);
+          }}
+          onMouseOut={() => setShopText("")}
           onClick={() => {
             if (money >= joker2.val) {
               updateJokers(joker2);
