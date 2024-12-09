@@ -123,6 +123,7 @@ function App() {
       return (
         <div className="ui">
           <JokerOptions
+            ownedJokers={ownedJokers.length}
             removeFromJokerPool={(ind) => {
               const newPool = [...jokerPool];
               jokerPool.splice(ind, 1);

@@ -79,12 +79,13 @@ const ALLJOKERS = [
 ];
 
 interface JokerOptionsProps {
+  ownedJokers: number;
   updateJokers: (item: object) => void;
   money: number;
   updateMoney: (item: number) => void;
 }
 
-function JokerOptions({ updateJokers, money, updateMoney }: JokerOptionsProps) {
+function JokerOptions({ ownedJokers, updateJokers, money, updateMoney }: JokerOptionsProps) {
   // The jokers
   const [joker1, setJoker1] = useState(null);
   const [joker2, setJoker2] = useState(null);
@@ -129,7 +130,7 @@ function JokerOptions({ updateJokers, money, updateMoney }: JokerOptionsProps) {
           }}
           onMouseOut={() => setShopText("")}
           onClick={() => {
-            if (money >= joker1.val) {
+            if (money >= joker1.val && ownedJokers < 3) {
               updateJokers(joker1); // add joker
               setShowJoker1(false); // hide image
               updateMoney(money - joker1.val); // subtract money
@@ -147,7 +148,7 @@ function JokerOptions({ updateJokers, money, updateMoney }: JokerOptionsProps) {
           }}
           onMouseOut={() => setShopText("")}
           onClick={() => {
-            if (money >= joker2.val) {
+            if (money >= joker2.val && ownedJokers < 3) {
               updateJokers(joker2);
               setShowJoker2(false);
               updateMoney(money - joker2.val);
