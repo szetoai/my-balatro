@@ -168,7 +168,14 @@ function App() {
         <h1 id="youWin">
           You Win! Thanks for playing MyBalatro!
           <br />
-          <a href="https://www.playbalatro.com/">Click here to go play the real Balatro (I promise it's much better ;p)</a>
+          <a href="https://www.playbalatro.com/">
+            Click here to go play the real Balatro (I promise it's much better
+            ;p)
+          </a>
+          <img
+            className="ui"
+            src="https://static.wikia.nocookie.net/balatrogame/images/e/ef/Joker.png"
+          />
         </h1>
       );
   }
