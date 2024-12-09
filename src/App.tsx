@@ -68,8 +68,12 @@ function App() {
         if (newRound % 3 == 1) {
           setAnte(ante + 1);
         }
-        reset();
-        setgameState("Shop");
+        if (newRound >= 25) {
+          setgameState("Win");
+        } else {
+          reset();
+          setgameState("Shop");
+        }
       } else if (handNum <= 0) {
         setgameState("Game Over");
         reset();
@@ -159,6 +163,8 @@ function App() {
           <Start onPress={() => setgameState("Round")} />;
         </>
       );
+    case "Win":
+      return <img src="https://i.ibb.co/kBFJfXr/winscreen.jpg" />
   }
 }
 
