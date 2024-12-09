@@ -11,7 +11,6 @@ import { PlayHandButton } from "./components/Round/PlayHand";
 import { Discard } from "./components/Round/Discard";
 import { Jokers } from "./components/Round/Jokers";
 // Shop Components
-import { ShopTitle } from "./components/Shop/ShopTitle";
 import { JokerOptions } from "./components/Shop/JokerOptions";
 import { NextRound } from "./components/Shop/NextRound";
 
@@ -20,6 +19,7 @@ const AnteBaseValues = [100, 300, 800, 2000, 5000, 11000, 20000, 35000, 50000];
 function App() {
   // A gameState is one of: "Game Over" "Round" "Shop" and represents one of 3 game states
   const [gameState, setgameState] = useState("Game Over");
+  // Round info
   const [handNum, setHandNum] = useState(4); // Number of hands
   const [discardNum, setDiscardNum] = useState(4); // Number of discards
   const [ante, setAnte] = useState(1); // Ante Number
@@ -28,6 +28,7 @@ function App() {
   const [deckState, setDeckState] = useState(MakeDeck()); // Deck
   const [handState, setHandState] = useState(Array); // Hand
   const [ahandState, setAhandState] = useState(Array); // Active hand
+  // Shop Info
   const [money, setMoney] = useState(0); // Money
   const [ownedJokers, setOwnedJokers] = useState(Array); // Owned Jokers
   // updateHand: () -> void
@@ -56,7 +57,6 @@ function App() {
     interest = 5;
   }
   const curReward = 3 + ((round - 1) % 3) + handNum + interest;
-  console.log(ownedJokers);
   switch (gameState) {
     case "Round":
       // Goal and Round winning logic
@@ -121,7 +121,16 @@ function App() {
     case "Shop":
       return (
         <div className="ui">
-          <JokerOptions updateJokers={(x) => setOwnedJokers([...ownedJokers, x])} money={money} updateMoney={setMoney}/>
+          <JokerOptions
+            removeFromJokerPool={(ind) => {
+              const newPool = [...jokerPool];
+              jokerPool.splice(ind, 1);
+              setJokerPool(newPool);
+            }}
+            updateJokers={(x) => setOwnedJokers([...ownedJokers, x])}
+            money={money}
+            updateMoney={setMoney}
+          />
           <NextRound onPress={() => setgameState("Round")} />
         </div>
       );

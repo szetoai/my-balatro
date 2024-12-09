@@ -70,7 +70,11 @@ interface JokerOptionsProps {
   updateMoney: (item: number) => void;
 }
 
-function JokerOptions({ updateJokers, money, updateMoney }: JokerOptionsProps) {
+function JokerOptions({
+  updateJokers,
+  money,
+  updateMoney,
+}: JokerOptionsProps) {
   // The jokers
   const [joker1, setJoker1] = useState(null);
   const [joker2, setJoker2] = useState(null);
@@ -145,4 +149,4 @@ function JokerOptions({ updateJokers, money, updateMoney }: JokerOptionsProps) {
   );
 }
 
-export { JokerOptions };
+export { JokerOptions, ALLJOKERS };

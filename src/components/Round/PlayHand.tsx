@@ -51,7 +51,6 @@ function PlayHandButton({
   const chips = ChipVal(handType) + HandScore(ahand, handType);
   const mult = MultVal(handType);
   const score = chips * mult;
-  console.log(chips, mult, handType, score);
   return (
     <img
       className="ui"
