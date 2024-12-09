@@ -84,7 +84,7 @@ function JokerOptions() {
   return (
     <>
       <img
-        className="ui"
+        className="shopJoker"
         src={joker1Img}
         onMouseOver={() => setJoker1Img(joker2Img)}
         onMouseOut={() =>
@@ -93,7 +93,7 @@ function JokerOptions() {
           )
         }
       />
-      <img className="ui" src={joker2Img} />
+      <img className="shopJoker" src={joker2Img} />
     </>
   );
 }

@@ -116,8 +116,8 @@ function App() {
     case "Shop":
       return (
         <div className="ui">
-          <NextRound onPress={() => setgameState("Round")} />
           <JokerOptions />
+          <NextRound onPress={() => setgameState("Round")} />
         </div>
       );
     case "Game Over":
