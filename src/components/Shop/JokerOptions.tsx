@@ -63,39 +63,76 @@ const ALLJOKERS = [
   GLUTTONOUSJOKER,
 ];
 
-function JokerOptions() {
+interface JokerOptionsProps {
+  updateJokers: (item: object) => void;
+}
+
+function JokerOptions({ updateJokers }: JokerOptionsProps) {
+  const [joker1, setJoker1] = useState(null);
+  const [joker2, setJoker2] = useState(null);
   const [joker1Img, setJoker1Img] = useState(null);
   const [joker2Img, setJoker2Img] = useState(null);
-  let joker1OgImg = null;
-  let joker2OgImg = null;
+  const [showJoker1, setShowJoker1] = useState(true);
+  const [showJoker2, setShowJoker2] = useState(true);
+
   useEffect(() => {
+    // Make a shallow copy of ALLJOKERS to avoid modifying the original array
+    const jokersCopy = [...ALLJOKERS];
+
     // Randomly select two unique jokers
-    const joker1ind = Math.floor(Math.random() * ALLJOKERS.length);
-    const joker1 = ALLJOKERS[joker1ind];
-    ALLJOKERS.splice(joker1ind, 1); // Remove the selected joker
-    // Do the same for second joker
-    const joker2ind = Math.floor(Math.random() * ALLJOKERS.length);
-    const joker2 = ALLJOKERS[joker2ind];
-    ALLJOKERS.splice(joker2ind, 1);
-    // Set the images for the selected jokers
-    setJoker1Img(joker1.img);
-    setJoker2Img(joker2.img);
+    const joker1ind = Math.floor(Math.random() * jokersCopy.length);
+    const selectedJoker1 = jokersCopy[joker1ind];
+    jokersCopy.splice(joker1ind, 1); // Remove the selected joker
+
+    const joker2ind = Math.floor(Math.random() * jokersCopy.length);
+    const selectedJoker2 = jokersCopy[joker2ind];
+
+    // Update state for the jokers
+    setJoker1(selectedJoker1);
+    setJoker2(selectedJoker2);
+
+    // Update state for images
+    setJoker1Img(selectedJoker1.img);
+    setJoker2Img(selectedJoker2.img);
   }, []);
+
   return (
     <>
-      <img
-        className="shopJoker"
-        src={joker1Img}
-        onMouseOver={() => setJoker1Img(joker2Img)}
-        onMouseOut={() =>
-          setJoker1Img(
-            "https://static.wikia.nocookie.net/balatrogame/images/2/2e/Joker_Stencil.png"
-          )
-        }
-      />
-      <img className="shopJoker" src={joker2Img} />
+      {showJoker1 && ( // Conditionally render the first image
+        <img
+          className="shopJoker"
+          src={joker1Img}
+          onMouseOver={() => setJoker1Img(joker2Img)}
+          onMouseOut={() =>
+            setJoker1Img(
+              "https://static.wikia.nocookie.net/balatrogame/images/2/2e/Joker_Stencil.png"
+            )
+          }
+          onClick={() => {
+            updateJokers(joker1);
+            setShowJoker1(false); // Hide the first image
+          }}
+        />
+      )}
+      {showJoker2 && (
+        <img
+          className="shopJoker"
+          src={joker2Img}
+          onMouseOver={() => setJoker2Img(joker1Img)}
+          onMouseOut={() =>
+            setJoker1Img(
+              "https://static.wikia.nocookie.net/balatrogame/images/2/2e/Joker_Stencil.png"
+            )
+          }
+          onClick={() => {
+            updateJokers(joker2);
+            setShowJoker2(false);
+          }}
+        />
+      )}
     </>
   );
 }
+ 
 
 export { JokerOptions };

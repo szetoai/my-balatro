@@ -120,7 +120,7 @@ h1 {
 /* Jokers Box */
 #jokers {
   height: 500px;
-  transform: translate(1000px, -250px);
+  transform: translate(1050px, -250px);
   margin-bottom: -600px;
 }
 
@@ -179,6 +179,12 @@ h1 {
 }
 
 /* --------------- Shop Stuff -------------- */
+#shopTitle {
+  text-align: center;
+  font-size: 500%;
+  background-color: #e8892a;
+}
+
 .shopJoker {
   width: 180px;
   transform: translateX(758px);

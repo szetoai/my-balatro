@@ -11,6 +11,7 @@ import { PlayHandButton } from "./components/Round/PlayHand";
 import { Discard } from "./components/Round/Discard";
 import { Jokers } from "./components/Round/Jokers";
 // Shop Components
+import { ShopTitle } from "./components/Shop/ShopTitle";
 import { JokerOptions } from "./components/Shop/JokerOptions";
 import { NextRound } from "./components/Shop/NextRound";
 
@@ -27,7 +28,8 @@ function App() {
   const [deckState, setDeckState] = useState(MakeDeck()); // Deck
   const [handState, setHandState] = useState(Array); // Hand
   const [ahandState, setAhandState] = useState(Array); // Active hand
-  const [money, setMoney] = useState(0);
+  const [money, setMoney] = useState(0); // Money
+  const [ownedJokers, setOwnedJokers] = useState(Array); // Owned Jokers
   // updateHand: () -> void
   // Updates the hand so that it contains only the cards that arent in the active hand
   const updateHand = () => {
@@ -54,6 +56,7 @@ function App() {
     interest = 5;
   }
   const curReward = 3 + ((round - 1) % 3) + handNum + interest;
+  console.log(ownedJokers);
   switch (gameState) {
     case "Round":
       // Goal and Round winning logic
@@ -86,7 +89,7 @@ function App() {
               round={round}
             />
             <Score num={roundScore} />
-            <Jokers owned={[]} />
+            <Jokers owned={ownedJokers} />
           </div>
           <HandInfo ahand={ahandState} />
           <PlayHandButton
@@ -118,7 +121,8 @@ function App() {
     case "Shop":
       return (
         <div className="ui">
-          <JokerOptions />
+          <ShopTitle money={money} />
+          <JokerOptions updateJokers={(x) => setOwnedJokers([...ownedJokers, x])} />
           <NextRound onPress={() => setgameState("Round")} />
         </div>
       );
