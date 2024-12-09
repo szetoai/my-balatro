@@ -124,6 +124,27 @@ h1 {
   margin-bottom: -600px;
 }
 
+/* Jokers in the round */
+.roundJoker {
+  width: 100px;
+  margin-bottom: -150px;
+}
+
+/* Round Joker 1 */
+#roundJoker1 {
+  transform: translate(885px, -180px);
+}
+
+/* Round Joker 2 */
+#roundJoker2 {
+  transform: translate(786px, -30px);
+}
+
+/* Round Joker 3 */
+#roundJoker3 {
+  transform: translate(687px, 120px);
+}
+
 /* Hand Info Box */
 #handinfo {
   width: 250px;
