@@ -16,7 +16,6 @@ function HandScore(ahand, handType: string) {
     } else {
       countedCards = [ahand[0]];
     }
-    console.log(countedCards);
     return countedCards.reduceRight((total, card) => {
       const rank = card.rank;
       let cardscore;

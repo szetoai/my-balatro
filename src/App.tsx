@@ -9,9 +9,10 @@ import { InfoPanel } from "./components/Round/RoundInfo";
 import { Score } from "./components/Round/Score";
 import { PlayHandButton } from "./components/Round/PlayHand";
 import { Discard } from "./components/Round/Discard";
+import { Jokers } from "./components/Round/Jokers";
 // Shop Components
-import { NextRound } from "./components/Shop/NextRound";
 import { JokerOptions } from "./components/Shop/JokerOptions";
+import { NextRound } from "./components/Shop/NextRound";
 
 const AnteBaseValues = [100, 300, 800, 2000, 5000, 11000, 20000, 35000, 50000];
 
@@ -85,6 +86,7 @@ function App() {
               round={round}
             />
             <Score num={roundScore} />
+            <Jokers owned={[]} />
           </div>
           <HandInfo ahand={ahandState} />
           <PlayHandButton
