@@ -1,5 +1,18 @@
 import { BestHand, ChipVal, MultVal } from "./Hand";
 
+// CountedCards: [List-of Card] String -> [List-of Card]
+// Filters out any non-scoring cards in a hand,
+// (ex. any card besides the highest in a high card, non pair in x of a kind)
+function CountedCards(ahand: object[], handType: string) {
+  if (handType !== "High Card") {
+    return ahand.filter(
+      (item, index) => BestHand(ahand.toSpliced(index, 1)) !== handType
+    );
+  } else {
+    return [ahand[0]];
+  }
+}
+
 // For Card Data Definition, see Hand.tsx
 // HandScore: [List-of Card] String -> img
 // Calculates the value of the given hand based on each Card's rank
@@ -7,16 +20,8 @@ function HandScore(ahand, handType: string) {
   if (ahand.length === 0) {
     return 0;
   } else {
-    // we only want the cards that contribute to the handType
-    let countedCards;
-    if (handType !== "High Card") {
-      countedCards = ahand.filter(
-        (item, index) => BestHand(ahand.toSpliced(index, 1)) !== handType
-      );
-    } else {
-      countedCards = [ahand[0]];
-    }
-    return countedCards.reduceRight((total, card) => {
+    const countedHand = CountedCards(ahand, handType);
+    return countedHand.reduceRight((total, card) => {
       const rank = card.rank;
       let cardscore;
       if (rank === 14) {
@@ -33,9 +38,10 @@ function HandScore(ahand, handType: string) {
 // ApplyJokers: [List-of Joker] [List-of Card] [List-of [Maybe-Number]]
 // Applies all Jokers in the given [List-of Joker] onto the score.
 function ApplyJokers(jokers: object[], ahand: object[], chipsAndMult: any[]) {
+  const countedHand = CountedCards(ahand, BestHand(ahand));
   let curChipsAndMult = chipsAndMult;
   jokers.forEach((element) => {
-    curChipsAndMult = element.effect(ahand, curChipsAndMult);
+    curChipsAndMult = element.effect(countedHand, curChipsAndMult);
   });
   return curChipsAndMult[0] * curChipsAndMult[1];
 }
