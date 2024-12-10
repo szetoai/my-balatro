@@ -148,7 +148,7 @@ function App() {
               Rules:
               <br />
               THIS IS NOT THE REAL BALATRO. GO TO <a href="https://www.playbalatro.com/">PLAYBALATRO.COM</a> TO
-               PLAY THE REAL VERSION.
+               PLAY THE REAL VERSION - ITS MUCH BETTER.
               <br />
               - Reach the target chip value using Poker Hands (better hand =
               more chips)
