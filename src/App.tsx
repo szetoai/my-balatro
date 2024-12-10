@@ -147,10 +147,13 @@ function App() {
             <span className="rulesbg">
               Rules:
               <br />
+              THIS IS NOT THE REAL BALATRO. GO TO <a href="https://www.playbalatro.com/">PLAYBALATRO.COM</a> TO
+               PLAY THE REAL VERSION.
+              <br />
               - Reach the target chip value using Poker Hands (better hand =
               more chips)
               <br />
-              - Each card that counts to your hand adds that many chips to your Score
+              - Each card that counts towards your hand adds that many chips to your Score
               <br />
               - If you run out of hands, you lose!
               <br />
