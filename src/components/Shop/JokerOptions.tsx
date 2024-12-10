@@ -62,6 +62,14 @@ const GLUTTONOUSJOKER = new Joker(
   "Gluttonous Joker: Played cards with Club suit give +3 Mult when scored",
   "https://static.wikia.nocookie.net/balatrogame/images/a/ac/Gluttonous_Joker.png"
 );
+const GROSMICHEL = new Joker(
+  (ahand, chipsAndMult) => {
+    return [chipsAndMult[0], chipsAndMult[1] + 15];
+  },
+  5,
+  "Gros Michel: +15 Mult, 1 in 6 chance this is destroyed at the end of round.",
+  "https://static.wikia.nocookie.net/balatrogame/images/6/6f/Gros_Michel.png"
+);
 // Template
 function JokerTemp(joker: Joker) {
   joker.effect;
@@ -76,6 +84,7 @@ const ALLJOKERS = [
   LUSTYJOKER,
   WRATHFULJOKER,
   GLUTTONOUSJOKER,
+  GROSMICHEL,
 ];
 
 interface JokerOptionsProps {
@@ -85,7 +94,12 @@ interface JokerOptionsProps {
   updateMoney: (item: number) => void;
 }
 
-function JokerOptions({ ownedJokers, updateJokers, money, updateMoney }: JokerOptionsProps) {
+function JokerOptions({
+  ownedJokers,
+  updateJokers,
+  money,
+  updateMoney,
+}: JokerOptionsProps) {
   // The jokers
   const [joker1, setJoker1] = useState(null);
   const [joker2, setJoker2] = useState(null);
@@ -101,7 +115,7 @@ function JokerOptions({ ownedJokers, updateJokers, money, updateMoney }: JokerOp
     const jokersCopy = [...ALLJOKERS];
 
     // Randomly select two unique jokers
-    const joker1ind = Math.floor(Math.random() * (jokersCopy.length - 1));
+    const joker1ind = Math.floor(Math.random() * jokersCopy.length);
     const selectedJoker1 = jokersCopy[joker1ind];
     jokersCopy.splice(joker1ind, 1); // Remove the selected joker
 
