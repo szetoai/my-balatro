@@ -150,13 +150,15 @@ function App() {
               - Reach the target chip value using Poker Hands (better hand =
               more chips)
               <br />
+              - Each card that counts to your hand adds that many chips to your Score
+              <br />
               - If you run out of hands, you lose!
               <br />
               - Each leftover hand = +$1 reward (Extra discards do nothing)
               <br />
               - Each $5 = +$1 reward (Max. $5)
               <br />
-              - Spend $ on Jokers to boost your performance
+              - Spend $ on Jokers (Max 3) to boost your performance
               <br />- Each Ante is 3 Rounds, beat 8 Antes to win!
             </span>
           </h1>
