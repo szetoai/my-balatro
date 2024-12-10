@@ -1,4 +1,5 @@
 {
+  "homepage": "https://szetoai.github.io/my-balatro",
   "name": "my-first-react-app",
   "private": true,
   "version": "0.0.0",
@@ -9,7 +10,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build" 
   },
   "dependencies": {
     "bootstrap": "^5.2.3",
@@ -29,6 +30,5 @@
     "typescript": "~5.6.2",
     "typescript-eslint": "^8.15.0",
     "vite": "^6.0.1"
-  },
-  "homepage": "http://szetoai.github.io/my-balatro"
+  }
 }
